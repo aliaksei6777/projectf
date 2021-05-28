@@ -9,7 +9,7 @@ const MainContainer = styled.div`
 export const Login = () => {
     return (
         <MainContainer>
-            <h3>Login page</h3>
+            <h3>Login page!</h3>
         </MainContainer>
     )
 }
