@@ -3,8 +3,7 @@ import styled from "styled-components"
 import { StyledButton } from "../../n1-main/m1-ui/u1-common/styles/Button";
 
 const TestPageContainer = styled.div`
-  display: flex;
-  justify-content: center;
+    text-align: center;
 `
 
 export const TestPage = () => {
