@@ -9,6 +9,7 @@ const RegisterContainer = styled.div`
 
 `
 type registrationPropsType = {
+    error: string | null
     email: string
     password: string
     confirmPassword: string
@@ -21,6 +22,7 @@ type registrationPropsType = {
 }
 
 export const RegistrationPage = React.memo((props: registrationPropsType) => {
+
     return (
         <RegisterContainer>
             <h3>Registration page</h3>
@@ -37,6 +39,7 @@ export const RegistrationPage = React.memo((props: registrationPropsType) => {
                 <input type={'password'} onChange={props.onChangeDataInput(props.setConfirmPassword)}
                        value={props.confirmPassword}/>
             </div>
+            {props.error ? <div> error: {props.error} </div> : null}
             <div>
                 <button onClick={props.clickCancelButton}>Cancel</button>
                 <button onClick={props.clickRegistrationButton}>Register</button>

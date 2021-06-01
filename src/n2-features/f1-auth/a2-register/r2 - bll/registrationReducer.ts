@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import { setErrorRegistrationActionType, setSuccessRegistrationActionType } from "./actionRegistrationReducer";
+import {setErrorRegistrationActionType, setSuccessRegistrationActionType} from "./actionRegistrationReducer";
 
 //type
 export type InitialStateType = {

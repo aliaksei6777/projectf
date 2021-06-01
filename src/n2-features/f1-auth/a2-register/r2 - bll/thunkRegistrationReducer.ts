@@ -1,6 +1,6 @@
-import { Dispatch } from "redux"
-import { registrationApi } from "../r3 - dal/registrationApi"
-import {setErrorRegistration, setSuccessRegistration } from "./actionRegistrationReducer"
+import {Dispatch} from "redux"
+import {registrationApi} from "../r3 - dal/registrationApi"
+import {setErrorRegistration, setSuccessRegistration} from "./actionRegistrationReducer"
 
 export const setDataRegistrationTC = (email: string, password: string) => async (dispatch: Dispatch) => {
     try {
