@@ -8,29 +8,38 @@ const RegisterContainer = styled.div`
   justify-content: center;
 
 `
+type registrationPropsType = {
+    email: string
+    password: string
+    confirmPassword: string
+    onChangeDataInput: (setFunction: Function) => (e: ChangeEvent<HTMLInputElement>) => void
+    clickRegistrationButton: () => void
+    clickCancelButton: () => void
+    setEmail: React.Dispatch<SetStateAction<string>>
+    setPassword: React.Dispatch<SetStateAction<string>>
+    setConfirmPassword: React.Dispatch<SetStateAction<string>>
+}
 
-
-export const RegistrationPage = React.memo(() => {
-
+export const RegistrationPage = React.memo((props: registrationPropsType) => {
     return (
         <RegisterContainer>
             <h3>Registration page</h3>
             <div>
                 Email
-                <input />
+                <input onChange={props.onChangeDataInput(props.setEmail)} value={props.email}/>
             </div>
             <div>
                 Password
-                <input />
+                <input type={'password'} onChange={props.onChangeDataInput(props.setPassword)} value={props.password}/>
             </div>
             <div>
                 Confirm password
-                <input/>
+                <input type={'password'} onChange={props.onChangeDataInput(props.setConfirmPassword)}
+                       value={props.confirmPassword}/>
             </div>
-
             <div>
-                <button>Cancel</button>
-                <button>Register</button>
+                <button onClick={props.clickCancelButton}>Cancel</button>
+                <button onClick={props.clickRegistrationButton}>Register</button>
             </div>
         </RegisterContainer>
     )
