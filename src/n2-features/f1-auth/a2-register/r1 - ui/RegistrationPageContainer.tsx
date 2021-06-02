@@ -17,6 +17,8 @@ export const RegistrationPageContainer = React.memo(() => {
         const [email, setEmail] = useState<string>('')
         const [password, setPassword] = useState<string>('')
         const [confirmPassword, setConfirmPassword] = useState<string>('')
+        const [passwordShow, setPasswordShow] = useState<boolean>(false)
+        const [confirmPasswordShow, setConfirmPasswordShow] = useState<boolean>(false)
         const dispatch = useDispatch()
 
         const onChangeDataInput = useCallback((setFunction: Function) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +43,16 @@ export const RegistrationPageContainer = React.memo(() => {
 
         const clickCancelButton = useCallback(() => {
             clearInput()
-        }, [clearInput])
+            dispatch(setErrorRegistration(null))
+        }, [clearInput, dispatch])
+
+        const isPasswordShow = useCallback(() => {
+            setPasswordShow(!passwordShow)
+        }, [passwordShow, setPasswordShow])
+
+        const isConfirmPasswordShow = useCallback(() => {
+            setConfirmPasswordShow(!confirmPasswordShow)
+        }, [confirmPasswordShow, setConfirmPasswordShow])
 
         if (!success) {
             return <Redirect to={PATH.LOGIN}/>
@@ -58,6 +69,12 @@ export const RegistrationPageContainer = React.memo(() => {
                 setEmail={setEmail}
                 setPassword={setPassword}
                 setConfirmPassword={setConfirmPassword}
+                passwordShow={passwordShow}
+                confirmPasswordShow={confirmPasswordShow}
+                isConfirmPasswordShow={isConfirmPasswordShow}
+                isPasswordShow={isPasswordShow}
+                setPasswordShow={setPasswordShow}
+                setConfirmPasswordShow={setConfirmPasswordShow}
             />
         </div>
     }
