@@ -9,7 +9,6 @@ import Routes from "./u3-routes/Routes";
 
 const App = () => {
     const status = useSelector<RootStateType, string>(state => state.app.status)
-    // const error = useSelector<RootStateType, string | null>(state => state.app.error)
     const dispatch = useDispatch()
 
     useEffect(() => {
