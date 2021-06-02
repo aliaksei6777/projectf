@@ -54,9 +54,9 @@ export const RegistrationPageContainer = React.memo(() => {
             setConfirmPasswordShow(!confirmPasswordShow)
         }, [confirmPasswordShow, setConfirmPasswordShow])
 
-        if (!success) {
-            return <Redirect to={PATH.LOGIN}/>
-        }
+        // if (!success) {
+        //     return <Redirect to={PATH.LOGIN}/>
+        // }
 
         return <div>
             <RegistrationPage
