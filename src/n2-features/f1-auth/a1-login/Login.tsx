@@ -19,6 +19,7 @@ export const Login = () => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
+    const error = useSelector<RootStateType, string | null>(state => state.app.error)
 
     const onClickEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.currentTarget.value)
         
@@ -47,6 +48,8 @@ export const Login = () => {
                 <input type={'checkbox'} onChange={checkedHandler}/>
                 <button disabled={appStatus === 'loading'} onClick={onclickHandler}>submit</button>
             </LoginForm>
+            {error ? <ErrorContainer> error: {error} </ErrorContainer> : null}
+
         </MainContainer>
     )
 }
@@ -65,4 +68,14 @@ const LoginForm = styled.div`
     display: flex;
   flex-direction: column;
   
+`
+const ErrorContainer = styled.div`
+  margin-top: 30px;
+  margin-left: 45px;
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+  color: #ef0f00;
+  font-family: 'Popins', sans-serif;
 `

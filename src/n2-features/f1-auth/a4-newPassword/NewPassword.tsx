@@ -11,6 +11,8 @@ import {setAppError, setAppStatus} from "../../../n1-main/m1-ui/app-reducer";
 export const NewPassword = () => {
     const dispatch = useDispatch()
     const appStatus = useSelector<RootStateType, string>((state) => state.app.status)
+    const error = useSelector<RootStateType, string | null>(state => state.app.error)
+
 
     const {token} = useParams<Record<string, string | undefined>>();
     const history = useHistory();
@@ -41,6 +43,7 @@ export const NewPassword = () => {
                 <input value={email} onChange={onChangeHandler} placeholder={"enter new password"}/>
                 <button onClick={onClickHandler} disabled={appStatus === 'loading'}> send</button>
             </div>
+            {error ? <ErrorContainer> error: {error} </ErrorContainer> : null}
         </NewPasswordContainer>
 
     )
@@ -52,4 +55,14 @@ const NewPasswordContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+`
+const ErrorContainer = styled.div`
+  margin-top: 30px;
+  margin-left: 45px;
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+  color: #ef0f00;
+  font-family: 'Popins', sans-serif;
 `
