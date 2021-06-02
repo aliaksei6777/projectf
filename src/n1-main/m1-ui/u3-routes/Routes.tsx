@@ -3,10 +3,10 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import ErrorPage from "../../../n2-features/f3-error404/ErrorPage";
 import {Login} from "../../../n2-features/f1-auth/a1-login/Login";
 import {Profile} from "../../../n2-features/f2-profile/Profile";
-import {Register} from "../../../n2-features/f1-auth/a2-register/Register";
 import {Recovery} from "../../../n2-features/f1-auth/a3-recovery/Recovery";
 import {NewPassword} from "../../../n2-features/f1-auth/a4-newPassword/NewPassword";
 import {TestPage} from "../../../n2-features/f0-test/TestPage";
+import { RegistrationPageContainer } from '../../../n2-features/f1-auth/a2-register/r1 - ui/RegistrationPageContainer';
 
 export const PATH = {
     LOGIN: '/login',
@@ -23,7 +23,7 @@ function Routes() {
             <Switch>
                 <Route path={'/'} exact render={() => <Profile/>}/>
                 <Route path={PATH.LOGIN} exact render={() => <Login/>}/>
-                <Route path={PATH.REG} exact render={() => <Register/>}/>
+                <Route path={PATH.REG} exact render={() => <RegistrationPageContainer/>}/>
                 <Route path={PATH.RECOVERY_PASSWORD} exact render={() => <Recovery/>}/>
                 <Route path={PATH.NEW_PASSWORD} exact render={() => <NewPassword/>}/>
                 <Route path={PATH.PROFILE} exact render={() => <Profile/>}/>
