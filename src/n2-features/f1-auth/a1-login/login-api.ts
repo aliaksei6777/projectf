@@ -1,16 +1,8 @@
-import axios from "axios";
 import { UserDataType } from "./auth-reducer";
+import {instance, UpdateUserResponse} from "../../../n1-main/m3-dal/api";
 
-export const instance = axios.create({
-    withCredentials: true,
-    baseURL: 'http://localhost:7542/2.0/',
-    // baseURL: 'https://neko-back.herokuapp.com/2.0',
-})
 
-type UpdateUserResponse = {
-    error: string
-    updatedUser: UserDataType
-}
+
 
 export const authAPI = {
     me() {

@@ -1,33 +1,51 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import styled from "styled-components"
+import {useDispatch, useSelector} from "react-redux";
+import {RootStateType} from "../../../n1-main/m2-bll/store";
+import {sendRecoveryEmail} from "./recovery-thunk";
+import {setAppError, setAppStatus} from "../../../n1-main/m1-ui/app-reducer";
 
-
-const RecoveryContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`
 
 export const Recovery = () => {
-    let [email, setEmail] = useState<string>('')
+    const appStatus = useSelector<RootStateType, string>(state => state.app.status)
+    const dispatch = useDispatch()
 
-    let onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
-        let email = event.currentTarget.value
-        setEmail(email)
+    const [email, setEmail] = useState<string>('')
+
+    const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
+        setEmail(event.currentTarget.value)
+    }
+    const onClickHandler = () => {
+        dispatch(sendRecoveryEmail(email))
+        setEmail('')
     }
 
-
-
-
+    useEffect(() => {
+        return () => {
+            dispatch(setAppStatus('idle'))
+            dispatch(setAppError(null))
+        }
+    }, [])
 
     return (
         <>
             <RecoveryContainer>
                 <h3>Recovery page</h3>
+                <div>
+                    <input value={email} onChange={onChangeEmail} placeholder={"enter your email"}/>
+                    <button onClick={onClickHandler} disabled={appStatus === 'loading'}> send</button>
+                </div>
             </RecoveryContainer>
-            <div>
-                <input value={email} onChange={onChangeEmail}/>
-                <button onClick={()=>alert(email)}> send</button>
-            </div>
         </>
     )
 }
+
+
+//styled-components
+
+const RecoveryContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`

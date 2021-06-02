@@ -58,7 +58,7 @@ export const getAuthUserDataTC = () => async (dispatch: ThunkDispatch<RootStateT
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
         dispatch(setAppStatus('failed'))
         dispatch(setAppError(error))
-        console.log('Error: ', {...e})
+        console.log('Error: ', {error})
     }
 }
 
@@ -75,7 +75,7 @@ export const updateUserDataTC = (name?: string, avatar?: string) =>
             const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
             dispatch(setAppStatus('failed'))
             dispatch(setAppError(error))
-            console.log('Error: ', {...e})
+            console.log('Error: ', {error})
         }
 }
 

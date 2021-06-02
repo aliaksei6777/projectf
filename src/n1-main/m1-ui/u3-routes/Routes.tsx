@@ -12,7 +12,7 @@ export const PATH = {
     LOGIN: '/login',
     REG: '/registration',
     RECOVERY_PASSWORD: '/recoveryPassword',
-    NEW_PASSWORD: '/newPassword',
+    NEW_PASSWORD: '/set-new-password/:token?',
     PROFILE: '/profile',
     TEST: '/test'
 }

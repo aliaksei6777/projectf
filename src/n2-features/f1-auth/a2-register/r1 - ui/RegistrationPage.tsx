@@ -2,7 +2,46 @@ import React, {ChangeEvent, SetStateAction} from "react";
 import styled from "styled-components"
 import shape from "../../../../assets/Shape.png"
 
+export const RegistrationPage = React.memo((props: registrationPropsType) => {
 
+    return (
+        <RegisterContainer>
+            <FormContainer>
+                <TitleContainer>Sing up</TitleContainer>
+                <InputContainer>
+                    <SpanContainer>Email</SpanContainer>
+                    <InputRegistration
+                        onChange={props.onChangeDataInput(props.setEmail)}
+                        value={props.email}
+                    />
+                    <SpanContainer>Password</SpanContainer>
+
+                    <InputRegistration
+                        type={(!props.passwordShow) ? 'password' : 'text'}
+                        onChange={props.onChangeDataInput(props.setPassword)}
+                        value={props.password}
+                    />
+                    <SpanContainer>Confirm password</SpanContainer>
+
+                    <InputRegistration
+                        type={(!props.confirmPasswordShow) ? 'password' : 'text'}
+                        onChange={props.onChangeDataInput(props.setConfirmPassword)}
+                        value={props.confirmPassword}
+                    />
+                    <FirstImgPassword src={shape} onClick={props.isPasswordShow}/>
+                    <SecondImgPassword src={shape} onClick={props.isConfirmPasswordShow}/>
+                </InputContainer>
+                {props.error ? <ErrorContainer> error: {props.error} </ErrorContainer> : null}
+                <ButtonContainer>
+                    <ButtonCancel onClick={props.clickCancelButton}>Cancel</ButtonCancel>
+                    <ButtonRegistration onClick={props.clickRegistrationButton}>Register</ButtonRegistration>
+                </ButtonContainer>
+            </FormContainer>
+        </RegisterContainer>
+    )
+})
+
+//styled-components
 
 const RegisterContainer = styled.div`
   display: flex;
@@ -10,7 +49,7 @@ const RegisterContainer = styled.div`
   align-items: center;
   max-height: 100%;
   max-width: 100%;
-  background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
+  //background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
   position: relative;
 `
 const FormContainer = styled.div`
@@ -101,7 +140,6 @@ const ButtonRegistration = styled.button`
   &:active {
     background-color: #b1b1b1 !important;
   }
-
   font-family: 'Popins', sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -121,7 +159,6 @@ const ButtonCancel = styled.button`
   &:active {
     background-color: #b1b1b1 !important;
   }
-  
   font-family: 'Popins', sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -133,6 +170,8 @@ const ButtonCancel = styled.button`
   opacity: 0.8;
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
 `
+
+//types
 
 type registrationPropsType = {
     error: string | null
@@ -152,42 +191,3 @@ type registrationPropsType = {
     setPasswordShow: React.Dispatch<SetStateAction<boolean>>
     setConfirmPasswordShow: React.Dispatch<SetStateAction<boolean>>
 }
-
-export const RegistrationPage = React.memo((props: registrationPropsType) => {
-
-    return (
-        <RegisterContainer>
-            <FormContainer>
-                <TitleContainer>Sing up</TitleContainer>
-                <InputContainer>
-                    <SpanContainer>Email</SpanContainer>
-                    <InputRegistration
-                        onChange={props.onChangeDataInput(props.setEmail)}
-                        value={props.email}
-                    />
-                    <SpanContainer>Password</SpanContainer>
-
-                    <InputRegistration
-                        type={(!props.passwordShow) ? 'password' : 'text'}
-                        onChange={props.onChangeDataInput(props.setPassword)}
-                        value={props.password}
-                    />
-                    <SpanContainer>Confirm password</SpanContainer>
-
-                    <InputRegistration
-                        type={(!props.confirmPasswordShow) ? 'password' : 'text'}
-                        onChange={props.onChangeDataInput(props.setConfirmPassword)}
-                        value={props.confirmPassword}
-                    />
-                    <FirstImgPassword src={shape} onClick={props.isPasswordShow}/>
-                    <SecondImgPassword src={shape} onClick={props.isConfirmPasswordShow}/>
-                </InputContainer>
-                {props.error ? <ErrorContainer> error: {props.error} </ErrorContainer> : null}
-                <ButtonContainer>
-                    <ButtonCancel onClick={props.clickCancelButton}>Cancel</ButtonCancel>
-                    <ButtonRegistration onClick={props.clickRegistrationButton}>Register</ButtonRegistration>
-                </ButtonContainer>
-            </FormContainer>
-        </RegisterContainer>
-    )
-})

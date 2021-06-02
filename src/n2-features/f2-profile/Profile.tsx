@@ -24,7 +24,7 @@ export const Profile = () => {
         <ProfileContainer>
             <h3>Profile page</h3>
             <div>
-                {profileData && profileData.name}
+                {profileData! && profileData.name}
             </div>
             <div>
                 <img src={profileData! && profileData.avatar} alt="" width={'70px'}/>

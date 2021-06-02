@@ -1,26 +1,26 @@
-import axios from "axios";
+import {APIResponseType, instance} from "../../../n1-main/m3-dal/api";
 
-export const instance = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0/',
-    withCredentials: true
-})
 
-export type ForgotType = {
+export type RecoverType = {
     error: string
+    info: string
 }
 
-export const forgotAPI = {
-    forgot(email: string){
-        return instance.post<ForgotType>('auth/forgot',{
+export const recoverAPI = {
+    recover(email: string){
+        return instance.post<APIResponseType<RecoverType>>('auth/forgot',{
             email,
-            from: "test-front-admin <ai73a@yandex.by>",
-            message: `
-<div style="background-color: lime; padding: 15px">
-password recovery link:
-<a href='http://localhost:3000/#/set-new-password/$token$'>link</a>
-</div>
-`
+            from: "test-front-admin <aliaksei6777@gmail.com>",
+            message: `<div style="background-color: lime; padding: 15px">password recovery link:
+                    <a href='https://aliaksei6777.github.io/projectf/#/set-new-password/$token$'>link</a>
+                    </div>`
         })
+    },
+    reset(password: string, token: string | undefined) {
+        return instance.post<APIResponseType<RecoverType>>('auth/set-new-password', {
+            password,
+            resetPasswordToken: token
+        });
     }
 }
 
