@@ -30,9 +30,9 @@ export const Login = () => {
         dispatch(loginTC(email, password, rememberMe))
     }, [email, password, rememberMe, dispatch])
 
-    // if (isLoggedIn) {
-    //     return <Redirect to={'/'}/>
-    // }
+    if (isLoggedIn) {
+        return <Redirect to={'/'}/>
+    }
 
     return (
         <MainContainer>
