@@ -2,6 +2,7 @@ import React from "react"
 import {NavLink} from "react-router-dom"
 import styled from "styled-components";
 import {PATH} from "../u3-routes/Routes";
+import Logout from "../../../n2-features/f1-auth/a1-login/Logout";
 
 const HeaderContainer = styled.div`
   height: 80px;
@@ -16,16 +17,19 @@ const StyledLink = styled(NavLink)`
   color: black;
   padding: 10px;
   text-decoration: none;
+  transition: color .4s;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 15px;
 
   &.active {
     color: indianred;
   }
-
   &:hover {
     color: white
   }
-;
 `
+
 
 export const Header = () => {
     return (
@@ -38,6 +42,7 @@ export const Header = () => {
                 <StyledLink to={PATH.NEW_PASSWORD}>Change Password</StyledLink>
                 <StyledLink to={PATH.TEST}>TEST page</StyledLink>
             </Nav>
+            <div><Logout/></div>
         </HeaderContainer>
     )
 }
