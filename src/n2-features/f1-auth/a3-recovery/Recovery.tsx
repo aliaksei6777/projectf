@@ -40,7 +40,7 @@ export const Recovery = () => {
                    Enter your email address and we will send you further instructions
                </Content>
                     <ButtonContainer>
-                        <ButtonRegistration onClick={onClickHandler} disabled={appStatus === 'loading'}> send</ButtonRegistration>
+                        <ButtonRegistration onClick={onClickHandler} disabled={appStatus === 'loading'}> Send Instructions</ButtonRegistration>
                         </ButtonContainer>
                     </InputContainer>
                 {error ? <ErrorContainer> error: {error} </ErrorContainer> : null}
