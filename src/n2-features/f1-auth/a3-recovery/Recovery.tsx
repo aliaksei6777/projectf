@@ -31,7 +31,6 @@ export const Recovery = () => {
     return (
         <>
             <RecoveryContainer>
-                {/*<h3>Recovery page</h3>*/}
                 <FormContainer>
                     <TitleContainer>Forgot your password?</TitleContainer>
                 <InputContainer>
@@ -43,7 +42,6 @@ export const Recovery = () => {
                         <ButtonRegistration onClick={onClickHandler} disabled={appStatus === 'loading'}> Send Instructions</ButtonRegistration>
                         </ButtonContainer>
                     </InputContainer>
-                {error ? <ErrorContainer> error: {error} </ErrorContainer> : null}
                 </FormContainer>
             </RecoveryContainer>
         </>

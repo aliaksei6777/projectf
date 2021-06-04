@@ -52,7 +52,7 @@ export const getAuthUserDataTC = () => async (dispatch: ThunkDispatch<RootStateT
         const res = await authAPI.me()
         dispatch(setUserData(res.data))
         dispatch(setIsLoggedIn(true))
-        dispatch(setAppStatus('loading'))
+        dispatch(setAppStatus('succeeded'))
         dispatch(setAppError(null))
     } catch (e) {
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console')

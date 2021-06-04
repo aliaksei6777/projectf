@@ -43,7 +43,6 @@ export const NewPassword = () => {
                 <input value={email} onChange={onChangeHandler} placeholder={"enter new password"}/>
                 <button onClick={onClickHandler} disabled={appStatus === 'loading'}> send</button>
             </div>
-            {error ? <ErrorContainer> error: {error} </ErrorContainer> : null}
         </NewPasswordContainer>
 
     )
