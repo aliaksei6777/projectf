@@ -1,11 +1,14 @@
 import React, {ChangeEvent, SetStateAction} from "react";
 import styled from "styled-components"
-import shape from "../../../../assets/Shape.png"
+import shape from "../../../../assets/images/Shape.png"
+import Preloader from "../../../../n3-components/Preloader/Preloader";
+import {ErrorSnackbar} from "../../../../n3-components/ErrorSnackbar/Errorsnackbar";
+
 
 export const RegistrationPage = React.memo((props: registrationPropsType) => {
-
     return (
         <RegisterContainer>
+            {props.appStatus === 'loading' && <Preloader/>}
             <FormContainer>
                 <TitleContainer>Sing up</TitleContainer>
                 <InputContainer>
@@ -15,14 +18,12 @@ export const RegistrationPage = React.memo((props: registrationPropsType) => {
                         value={props.email}
                     />
                     <SpanContainer>Password</SpanContainer>
-
                     <InputRegistration
                         type={(!props.passwordShow) ? 'password' : 'text'}
                         onChange={props.onChangeDataInput(props.setPassword)}
                         value={props.password}
                     />
                     <SpanContainer>Confirm password</SpanContainer>
-
                     <InputRegistration
                         type={(!props.confirmPasswordShow) ? 'password' : 'text'}
                         onChange={props.onChangeDataInput(props.setConfirmPassword)}
@@ -31,10 +32,12 @@ export const RegistrationPage = React.memo((props: registrationPropsType) => {
                     <FirstImgPassword src={shape} onClick={props.isPasswordShow}/>
                     <SecondImgPassword src={shape} onClick={props.isConfirmPasswordShow}/>
                 </InputContainer>
-                {props.error ? <ErrorContainer> error: {props.error} </ErrorContainer> : null}
+                {props.error ? <ErrorSnackbar error={props.error}/> : null}
                 <ButtonContainer>
                     <ButtonCancel onClick={props.clickCancelButton}>Cancel</ButtonCancel>
-                    <ButtonRegistration onClick={props.clickRegistrationButton}>Register</ButtonRegistration>
+                    <ButtonRegistration
+                        disabled={props.appStatus === 'loading'}
+                        onClick={props.clickRegistrationButton}>Register</ButtonRegistration>
                 </ButtonContainer>
             </FormContainer>
         </RegisterContainer>
@@ -96,6 +99,7 @@ const InputRegistration = styled.input`
   border: none;
   border-bottom: 1px solid #24254A;
   opacity: 0.2;
+
   &:focus {
     outline: none;
   }
@@ -113,17 +117,7 @@ const FirstImgPassword = styled.img`
   margin-left: 300px;
 `
 
-const ErrorContainer = styled.div`
-  margin-top: 30px;
-  margin-left: 45px;
-  width: 70%;
-  display: flex;
-  justify-content: center;
-  padding: 15px;
-  color: #ef0f00;
-  font-family: 'Popins', sans-serif;
-  background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
-`
+
 
 const ButtonContainer = styled.div`
   margin-top: 50px;
@@ -137,9 +131,11 @@ const ButtonRegistration = styled.button`
   box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
   border-radius: 30px;
   border: 1px;
+
   &:active {
     background-color: #b1b1b1 !important;
   }
+
   font-family: 'Popins', sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -156,9 +152,11 @@ const ButtonCancel = styled.button`
   border-radius: 30px;
   width: 100px;
   border: 1px;
+
   &:active {
     background-color: #b1b1b1 !important;
   }
+
   font-family: 'Popins', sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -190,4 +188,5 @@ type registrationPropsType = {
     setConfirmPassword: React.Dispatch<SetStateAction<string>>
     setPasswordShow: React.Dispatch<SetStateAction<boolean>>
     setConfirmPasswordShow: React.Dispatch<SetStateAction<boolean>>
+    appStatus: string
 }

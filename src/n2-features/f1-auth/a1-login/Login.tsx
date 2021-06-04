@@ -1,14 +1,12 @@
 import React from "react";
-import { ChangeEvent } from "react";
-import { useCallback } from "react";
-import { useState } from "react";
-import {useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import {ChangeEvent} from "react";
+import {useCallback} from "react";
+import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {Redirect} from "react-router-dom";
 import styled from "styled-components"
-import { RootStateType } from "../../../n1-main/m2-bll/store";
-import { loginTC } from "./auth-reducer";
-
-
+import {RootStateType} from "../../../n1-main/m2-bll/store";
+import {loginTC} from "./auth-reducer";
 
 
 export const Login = () => {
@@ -22,7 +20,6 @@ export const Login = () => {
     const error = useSelector<RootStateType, string | null>(state => state.app.error)
 
     const onClickEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.currentTarget.value)
-        
     const onClickPassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)
     const checkedHandler = (e: ChangeEvent<HTMLInputElement>) => setRememberMe(e.currentTarget.checked)
 
@@ -65,9 +62,9 @@ const MainContainer = styled.div`
 `
 
 const LoginForm = styled.div`
-    display: flex;
+  display: flex;
   flex-direction: column;
-  
+
 `
 const ErrorContainer = styled.div`
   margin-top: 30px;

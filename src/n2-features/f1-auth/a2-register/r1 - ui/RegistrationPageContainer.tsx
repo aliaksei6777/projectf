@@ -14,6 +14,7 @@ interface dataState {
 
 export const RegistrationPageContainer = React.memo(() => {
         const {error, success} = useSelector<RootStateType, dataState>(st => st.registration)
+        const appStatus = useSelector<RootStateType, string>(state => state.app.status)
         const [email, setEmail] = useState<string>('')
         const [password, setPassword] = useState<string>('')
         const [confirmPassword, setConfirmPassword] = useState<string>('')
@@ -75,6 +76,7 @@ export const RegistrationPageContainer = React.memo(() => {
                 isPasswordShow={isPasswordShow}
                 setPasswordShow={setPasswordShow}
                 setConfirmPasswordShow={setConfirmPasswordShow}
+                appStatus={appStatus}
             />
         </div>
     }
