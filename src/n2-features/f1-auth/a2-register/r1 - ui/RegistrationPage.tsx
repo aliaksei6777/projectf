@@ -1,14 +1,12 @@
 import React, {ChangeEvent, SetStateAction} from "react";
 import styled from "styled-components"
 import shape from "../../../../assets/images/Shape.png"
-import Preloader from "../../../../n3-components/Preloader/Preloader";
 import {ErrorSnackbar} from "../../../../n3-components/ErrorSnackbar/Errorsnackbar";
 
 
 export const RegistrationPage = React.memo((props: registrationPropsType) => {
     return (
         <RegisterContainer>
-            {props.appStatus === 'loading' && <Preloader/>}
             <FormContainer>
                 <TitleContainer>Sing up</TitleContainer>
                 <InputContainer>

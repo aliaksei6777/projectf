@@ -45,7 +45,7 @@ export const Login = () => {
                 <input type={'checkbox'} onChange={checkedHandler}/>
                 <button disabled={appStatus === 'loading'} onClick={onclickHandler}>submit</button>
             </LoginForm>
-            {error ? <ErrorContainer> error: {error} </ErrorContainer> : null}
+            {error ? <ErrorContainer> {error} </ErrorContainer> : null}
 
         </MainContainer>
     )
