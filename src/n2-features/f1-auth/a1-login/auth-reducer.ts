@@ -94,7 +94,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
         dispatch(setAppStatus('failed'))
         dispatch(setAppError(error))
-        console.log('Error: ', {...e})
+        console.log('Error: ', {error})
     }
 }
 
@@ -111,7 +111,7 @@ export const logoutTC = () => async (dispatch: ThunkDispatch<RootStateType, unkn
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
         dispatch(setAppStatus('failed'))
         dispatch(setAppError(error))
-        console.log('Error: ', {...e})
+        console.log('Error: ', {error})
     }
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 import {logoutTC} from "./auth-reducer";
 import styled from "styled-components";
+import {Redirect} from "react-router-dom";
 
 type LoginPropsType = {}
 
@@ -11,6 +12,7 @@ const Logout: React.FC<LoginPropsType> = () => {
 
     let onclickHandler = () => {
         dispatch(logoutTC())
+        return <Redirect to={'/'}/>
     }
     return (
         <StyledLogout onClick={onclickHandler}> LOGOUT</StyledLogout>

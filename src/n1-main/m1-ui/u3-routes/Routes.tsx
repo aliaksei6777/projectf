@@ -5,8 +5,9 @@ import {Login} from "../../../n2-features/f1-auth/a1-login/Login";
 import {Profile} from "../../../n2-features/f2-profile/Profile";
 import {Recovery} from "../../../n2-features/f1-auth/a3-recovery/Recovery";
 import {NewPassword} from "../../../n2-features/f1-auth/a4-newPassword/NewPassword";
-import {TestPage} from "../../../n2-features/f0-test/TestPage";
 import { RegistrationPageContainer } from '../../../n2-features/f1-auth/a2-register/r1 - ui/RegistrationPageContainer';
+import {CardsContainer} from "../../../n2-features/f5-cards/CardsContainer";
+import {PackContainer} from "../../../n2-features/f4-cardsPack/PackContainer";
 
 export const PATH = {
     LOGIN: '/login',
@@ -14,7 +15,8 @@ export const PATH = {
     RECOVERY_PASSWORD: '/recoveryPassword',
     NEW_PASSWORD: '/set-new-password/:token?',
     PROFILE: '/profile',
-    TEST: '/test'
+    CARD_PACKS: '/card_packs',
+    CARDS: '/cards'
 }
 
 function Routes() {
@@ -27,7 +29,8 @@ function Routes() {
                 <Route path={PATH.RECOVERY_PASSWORD} exact render={() => <Recovery/>}/>
                 <Route path={PATH.NEW_PASSWORD} exact render={() => <NewPassword/>}/>
                 <Route path={PATH.PROFILE} exact render={() => <Profile/>}/>
-                <Route path={PATH.TEST} exact render={() => <TestPage/>}/>
+                <Route path={PATH.CARDS + '/:id'} exact render={() => <CardsContainer/>}/>
+                <Route path={PATH.CARD_PACKS} exact render={() => <PackContainer/>}/>
                 <Route path={'/404'} render={() => <ErrorPage/>}/>
                 <Redirect from={'*'} to={'/404'}/>
             </Switch>
