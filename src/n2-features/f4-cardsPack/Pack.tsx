@@ -7,6 +7,7 @@ import React from "react";
 export const Pack: React.FC<PropsType> = ({cardPack}) => {
     return <>
         <div>{cardPack.name}</div><span><NavLink to={PATH.CARDS + '/' + cardPack._id}>Cards</NavLink></span>
+        <div>{cardPack.type}</div>
     </>
 }
 
