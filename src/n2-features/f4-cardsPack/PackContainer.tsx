@@ -2,13 +2,22 @@ import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../n1-main/m2-bll/store";
 import React, {useEffect} from "react";
-import {addCardPacksTC, CardPacksType, getCardPacksTC} from "./pack-reducer";
+import {
+    addCardPacksTC,
+    CardPacksType,
+    deleteCardPacksTC,
+    getCardPacksTC,
+    setCardPacks,
+} from "./pack-reducer";
 import {Pack} from "./Pack";
 import {v1} from "uuid";
 import {SearchPack} from "./SearchPack";
+import {ShowPacksCards} from "./ShowPacksCards";
 
 export const PackContainer = () => {
     const cardPacks = useSelector<RootStateType, CardPacksType[]>(state => state.cardPacks.cardPacks)
+    const myId = useSelector<RootStateType, string>(state => state.auth.user._id)
+    const packId = useSelector<RootStateType, string[]>(state => state.cardPacks.cardPacks.map(p => p._id))
 
     const dispatch = useDispatch()
     useEffect(() => {
@@ -21,14 +30,28 @@ export const PackContainer = () => {
         type: "test type"
     }
 
+    const showMyPacks = () => {
+        const myCardPack = cardPacks.filter(c => c.user_id === myId)
+        dispatch(setCardPacks(myCardPack))
+    }
+
+    const showAllPacks = () => {
+        dispatch(getCardPacksTC(1, 10))
+    }
+
+    const deletePack = (id: string) => {
+            dispatch(deleteCardPacksTC(id))
+    }
+
+
     return (
         <CardsStyledContainer>
             <FirstColumn>
-
+                <ShowPacksCards showMyPacks={showMyPacks} showAllPacks={showAllPacks}/>
             </FirstColumn>
             <SecondColumn>
                 <SearchPack/>
-                <Pack cardPack={cardPacks}/>
+                <Pack cardPack={cardPacks} deletePack={deletePack}/>
                 <button onClick={() => dispatch(addCardPacksTC(tempPack))}>ADD PACK</button>
             </SecondColumn>
         </CardsStyledContainer>

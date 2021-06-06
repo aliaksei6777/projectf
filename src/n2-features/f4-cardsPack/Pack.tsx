@@ -4,29 +4,27 @@ import {PATH} from "../../n1-main/m1-ui/u3-routes/Routes";
 import React from "react";
 import styled from "styled-components";
 
-type CardType = {
-    cardPack: Array<CardPacksType>
-}
+
 
 export const Pack: React.FC<CardType> = (props) => {
-        return <>
+    return <>
         <Table>
             <thead>
-                <ThStyled>Name</ThStyled>
-                <ThStyled>Cards</ThStyled>
-                <ThStyled>Last Updated</ThStyled>
-                <ThStyled>Created by</ThStyled>
-                <ThStyled>Actions</ThStyled>
+            <ThStyled>Name</ThStyled>
+            <ThStyled>Cards</ThStyled>
+            <ThStyled>Last Updated</ThStyled>
+            <ThStyled>Created by</ThStyled>
+            <ThStyled>Actions</ThStyled>
             </thead>
 
             {props.cardPack.map(cardPack => {
-               return  <tr>
+                return <tr key={cardPack._id}>
                     <TdStyled>{cardPack.name}</TdStyled>
                     <TdStyled>{cardPack.cardsCount}</TdStyled>
                     <TdStyled>{cardPack.updated}</TdStyled>
                     <TdStyled>{cardPack.user_name}</TdStyled>
                     <TdStyled>
-                        <button>Delete</button>
+                        <button onClick={() => props.deletePack(cardPack._id)}>Delete</button>
                         <button>Edit</button>
                         <button>
                             <NavLink to={PATH.CARDS + '/' + cardPack._id}>Learn</NavLink>
@@ -41,7 +39,7 @@ export const Pack: React.FC<CardType> = (props) => {
 
 //styled-components
 const Table = styled.table`
-margin-top: 20px;
+  margin-top: 20px;
 `
 
 const ThStyled = styled.th`
@@ -57,7 +55,8 @@ const TdStyled = styled.td`
 `
 
 //types
-type PropsType = {
-    cardPack: CardPacksType
+type CardType = {
+    cardPack: Array<CardPacksType>
+    deletePack: (id: string) => void
 }
 
