@@ -14,12 +14,13 @@ export const PackContainer = () => {
     useEffect(() => {
         dispatch(getCardPacksTC(1, 10))
     }, [])
+
     const tempPack: CardPacksType = {
         _id: v1(),
         name: "test name",
         type: "test type"
     }
-    const cardPacksMapped = cardPacks.map((c: CardPacksType) => <Pack key={c._id} cardPack={c}/>)
+
     return (
         <CardsStyledContainer>
             <FirstColumn>
@@ -27,7 +28,7 @@ export const PackContainer = () => {
             </FirstColumn>
             <SecondColumn>
                 <SearchPack/>
-                {cardPacksMapped}
+                <Pack cardPack={cardPacks}/>
                 <button onClick={() => dispatch(addCardPacksTC(tempPack))}>ADD PACK</button>
             </SecondColumn>
         </CardsStyledContainer>
@@ -36,7 +37,6 @@ export const PackContainer = () => {
 
 
 //styled-components
-
 const CardsStyledContainer = styled.div`
   width: 100%;
   display: flex;
@@ -46,7 +46,7 @@ const CardsStyledContainer = styled.div`
 `
 
 const FirstColumn = styled.div`
-  width: 30%;
+  width: 20%;
 `
 
 const SecondColumn = styled.div`
