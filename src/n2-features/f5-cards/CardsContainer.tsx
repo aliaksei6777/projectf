@@ -39,7 +39,6 @@ export const CardsContainer = () => {
 
 
 //styled-components
-
 const CardsStyledContainer = styled.div`
   display: flex;
   align-items: center;

@@ -5,6 +5,7 @@ import React, {useEffect} from "react";
 import {addCardPacksTC, CardPacksType, getCardPacksTC} from "./pack-reducer";
 import {Pack} from "./Pack";
 import {v1} from "uuid";
+import {SearchPack} from "./SearchPack";
 
 export const PackContainer = () => {
     const cardPacks = useSelector<RootStateType, CardPacksType[]>(state => state.cardPacks.cardPacks)
@@ -21,11 +22,15 @@ export const PackContainer = () => {
     const cardPacksMapped = cardPacks.map((c: CardPacksType) => <Pack key={c._id} cardPack={c}/>)
     return (
         <CardsStyledContainer>
-            {cardPacksMapped}
-            <button onClick={() => dispatch(addCardPacksTC(tempPack))}>ADD PACK</button>
+            <FirstColumn>
 
+            </FirstColumn>
+            <SecondColumn>
+                <SearchPack/>
+                {cardPacksMapped}
+                <button onClick={() => dispatch(addCardPacksTC(tempPack))}>ADD PACK</button>
+            </SecondColumn>
         </CardsStyledContainer>
-
     )
 }
 
@@ -33,8 +38,17 @@ export const PackContainer = () => {
 //styled-components
 
 const CardsStyledContainer = styled.div`
+  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: end;
+  align-items: start;
+`
+
+const FirstColumn = styled.div`
+  width: 30%;
+`
+
+const SecondColumn = styled.div`
+
 `

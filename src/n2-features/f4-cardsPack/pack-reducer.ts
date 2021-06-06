@@ -38,7 +38,6 @@ export const setPacksTotalCount = (packsTotalCount: number) => ({type: 'CARD-PAC
 
 export const getCardPacksTC = (requestPage: number, pageSize: number) =>
     async (dispatch: ThunkDispatch<RootStateType, unknown, ActionsType>) => {
-
     dispatch(setCurrentPage(requestPage))
     dispatch(setAppStatus('loading'))
     dispatch(setAppError(null))
