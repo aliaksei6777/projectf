@@ -34,13 +34,18 @@ export const Recovery = () => {
                 <FormContainer>
                     <TitleContainer>Forgot your password?</TitleContainer>
                 <InputContainer>
-                    <InputRegistration value={email} onChange={onChangeEmail} placeholder={'Email'}/>
+                    <SpanContainer>Email</SpanContainer>
+                    <InputRegistration value={email} onChange={onChangeEmail} />
                <Content>
                    Enter your email address and we will send you further instructions
                </Content>
                     <ButtonContainer>
                         <ButtonRegistration onClick={onClickHandler} disabled={appStatus === 'loading'}> Send Instructions</ButtonRegistration>
                         </ButtonContainer>
+                    <ContentRemember>
+                        Did you remember your password?
+                    </ContentRemember>
+                    <ContentLogging> Try logging in</ContentLogging>
                     </InputContainer>
                 </FormContainer>
             </RecoveryContainer>
@@ -121,7 +126,7 @@ const ButtonRegistration = styled.button`
   width: 266px;
   left: 0px;
   top: 0px;
- 
+ margin-top: 20px;
 
   &:active {
     background-color: #b1b1b1 !important;
@@ -153,3 +158,59 @@ const Content = styled.div`
   color: #2D2E46;
   opacity: 0.5;
     `
+const ContentRemember = styled.div`
+display: flex;
+
+  width: 241px;
+  height: 24px;
+  left: 520px;
+  margin-top: 53px;
+
+  font-family: SF UI Display;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+
+  text-align: center;
+
+  color: #2D2E46;
+
+  opacity: 0.5;
+`
+
+const ContentLogging = styled.div`
+
+  display: flex;
+  width: 98px;
+  height: 24px;
+  left: 591px;
+  margin-top: 50px;
+
+  font-family: SF UI Display;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+
+  text-align: center;
+
+  color: #21268F;
+`
+
+const SpanContainer = styled.span`
+  align-self: end;
+  margin-left: 35px;
+  margin-top: 10px;
+  margin-bottom: 0;
+  font-family: 'Popins', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 20px;
+  color: #24254A;
+  opacity: 0.5;
+`
+
