@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
 import styled from "styled-components"
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../../n1-main/m2-bll/store";
@@ -6,16 +6,15 @@ import {useHistory, useParams} from "react-router-dom";
 import {resetPassword} from "../a3-recovery/recovery-thunk";
 import {PATH} from "../../../n1-main/m1-ui/u3-routes/Routes";
 import {setAppError, setAppStatus} from "../../../n1-main/m1-ui/app-reducer";
-
-
+import shape from "../../../assets/images/Shape.png";
 
 
 export const NewPassword = () => {
     const dispatch = useDispatch()
     const appStatus = useSelector<RootStateType, string>((state) => state.app.status)
     const error = useSelector<RootStateType, string | null>(state => state.app.error)
-
-
+    const [password, setPassword] = useState<string>('')
+    const [passwordShow, setPasswordShow] = useState<boolean>(false)
     const {token} = useParams<Record<string, string | undefined>>();
     const history = useHistory();
 
@@ -32,26 +31,44 @@ export const NewPassword = () => {
         history.push(PATH.LOGIN);
     }
 
+
+
     useEffect(() => {
         return () => {
             dispatch(setAppStatus('idle'))
             dispatch(setAppError(null))
         }
     }, [])
+
+    const onChangeDataInput = useCallback((setFunction: Function) => (e: ChangeEvent<HTMLInputElement>) => {
+            return setFunction(e.currentTarget.value)
+        },
+        [])
+
+    const isPasswordShow = useCallback(() => {
+        setPasswordShow(!passwordShow)
+    }, [passwordShow, setPasswordShow])
     return (
         <NewPasswordContainer>
             <FormContainer>
-            <TitleContainer>NewPassword page</TitleContainer>
-            <InputContainer>
-                <InputRegistration type={'password'} value={email} onChange={onChangeHandler} placeholder={"Password"}/>
-                <Content>
-                    Create new password and we will send you further instructions to email
-                </Content>
-                <ButtonContainer>
-                    <ButtonRegistration onClick={onClickHandler} disabled={appStatus === 'loading'}> send</ButtonRegistration>
-                </ButtonContainer>
+                <TitleContainer>NewPassword page</TitleContainer>
+                <InputContainer>
+                    <InputRegistration
+                        type={(!passwordShow) ? 'password' : 'text'}
+                        onChange={onChangeDataInput(setPassword)}
+                        value={password}
+                    />
+                    <FirstImgPassword src={shape} onClick={isPasswordShow}/>
+                    {/*<InputRegistration type={'password'} value={email} onChange={onChangeHandler} placeholder={"Password"}/>*/}
+                    <Content>
+                        Create new password and we will send you further instructions to email
+                    </Content>
+                    <ButtonContainer>
+                        <ButtonRegistration onClick={onClickHandler}
+                                            disabled={appStatus === 'loading'}> send</ButtonRegistration>
+                    </ButtonContainer>
 
-            </InputContainer>
+                </InputContainer>
             </FormContainer>
         </NewPasswordContainer>
 
@@ -109,7 +126,8 @@ const InputRegistration = styled.input`
   border: none;
   border-bottom: 1px solid #24254A;
   opacity: 0.2;
-position: relative;
+  position: relative;
+
   &:focus {
     outline: none;
   }
@@ -131,12 +149,12 @@ const ButtonRegistration = styled.button`
   left: 0px;
   top: 0px;
   margin-top: 20px;
- 
+
 
   &:active {
     background-color: #b1b1b1 !important;
   }
- 
+
   font-family: 'Popins', sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -161,6 +179,11 @@ const Content = styled.div`
   line-height: 24px;
   color: #2D2E46;
   opacity: 0.5;
-    `
+`
+const FirstImgPassword = styled.img`
+  position: absolute;
+  //margin-top: 90px;
+  margin-left: 150px;
+`
 
 
