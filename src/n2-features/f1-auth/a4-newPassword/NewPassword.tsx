@@ -13,7 +13,6 @@ export const NewPassword = () => {
     const dispatch = useDispatch()
     const appStatus = useSelector<RootStateType, string>((state) => state.app.status)
     const error = useSelector<RootStateType, string | null>(state => state.app.error)
-    const [password, setPassword] = useState<string>('')
     const [passwordShow, setPasswordShow] = useState<boolean>(false)
     const {token} = useParams<Record<string, string | undefined>>();
     const history = useHistory();
@@ -55,8 +54,8 @@ export const NewPassword = () => {
                 <InputContainer>
                     <InputRegistration
                         type={(!passwordShow) ? 'password' : 'text'}
-                        onChange={onChangeDataInput(setPassword)}
-                        value={password}
+                        onChange={onChangeDataInput(setEmail)}
+                        value={email}
                     />
                     <FirstImgPassword src={shape} onClick={isPasswordShow}/>
                     {/*<InputRegistration type={'password'} value={email} onChange={onChangeHandler} placeholder={"Password"}/>*/}
