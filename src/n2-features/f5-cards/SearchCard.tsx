@@ -1,16 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 
-export const SearchPack = () => {
-    return <>
+
+export const SearchCard = () => {
+    return <SearchPackStyled>
         <InputSearchContainer type={'search'} placeholder={'Search...'}/>
-        <ButtonSearch>Add new pack</ButtonSearch>
-    </>
+        <ButtonSearch>Add new card</ButtonSearch>
+    </SearchPackStyled>
 }
 
 //styled-components
+const SearchPackStyled = styled.div`
+  margin-top: 30px;
+  display: flex;
+  justify-content: start;
+  flex-direction: row;
+  width: 100%;
+`
+
 const InputSearchContainer = styled.input`
-  width: 50%;
+  width: 60%;
   height: 30px;
   margin-right: 20px;
   background: #ECECF9;

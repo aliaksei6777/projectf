@@ -40,38 +40,83 @@ export const PackContainer = () => {
     }
 
     const deletePack = (id: string) => {
-            dispatch(deleteCardPacksTC(id))
+        dispatch(deleteCardPacksTC(id))
     }
 
 
     return (
-        <CardsStyledContainer>
-            <FirstColumn>
-                <ShowPacksCards showMyPacks={showMyPacks} showAllPacks={showAllPacks}/>
-            </FirstColumn>
-            <SecondColumn>
-                <SearchPack/>
-                <Pack cardPack={cardPacks} deletePack={deletePack}/>
-                <button onClick={() => dispatch(addCardPacksTC(tempPack))}>ADD PACK</button>
-            </SecondColumn>
-        </CardsStyledContainer>
+        <DivContainerStyle>
+            <CardsStyledContainer>
+                <FirstColumn>
+                    <ShowPacksCards showMyPacks={showMyPacks} showAllPacks={showAllPacks}/>
+                </FirstColumn>
+                <SecondColumn>
+                    <H3>Pack list</H3>
+                    <SearchPack/>
+                    <Pack cardPack={cardPacks} deletePack={deletePack}/>
+                    <ButtonStyle onClick={() => dispatch(addCardPacksTC(tempPack))}>Add Pack</ButtonStyle>
+                </SecondColumn>
+            </CardsStyledContainer>
+        </DivContainerStyle>
+
     )
 }
 
 
 //styled-components
+const DivContainerStyle = styled.div`
+  display: flex;
+  justify-content: center;
+`
 const CardsStyledContainer = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: end;
-  align-items: start;
+  width: 80%;
+  border-radius: 8px;
 `
-
 const FirstColumn = styled.div`
   width: 20%;
+  background: #ECECF9;
+  min-height: 575px;
+  display: flex;
+  flex-direction: column;  
+  align-items: center;
+  justify-content: start;
+
+`
+const SecondColumn = styled.div`
+  background: #FEFEFF;
+  min-height: 575px;
+`
+const H3 = styled.h3`
+  font-family: sans-serif;
+  color: #2D2E46;
+  size: 22px;
+  line-height: 33px;
+  margin-left: 10px;
 `
 
-const SecondColumn = styled.div`
+const ButtonStyle = styled.button`
+  background: #21268F;
+  width: 100px;
+  height: 30px;
+  box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  border: 1px;
+  margin-top: 10px;
+  margin-left: 10px;
 
+  &:active {
+    background-color: #b1b1b1 !important;
+  }
+
+  font-family: 'Popins', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: 0.01em;
+  color: #ECECF9;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
 `
