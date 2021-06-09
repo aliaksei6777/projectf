@@ -26,6 +26,8 @@ export const cardsPacksReducer = (state = initialState, actions: ActionsType): C
             return {...state, cardPacks: [actions.newPacks, ...state.cardPacks]}
         case 'CARD-PACKS/SET-PACKS-TOTAL-COUNT':
             return {...state, packsTotalCount: actions.packsTotalCount};
+        case "CARD-PACKS/SET-PAGE-SIZE":
+            return {...state, pageSize: actions.pageSize}
         default:
             return state
     }
@@ -34,6 +36,7 @@ export const cardsPacksReducer = (state = initialState, actions: ActionsType): C
 export const setCardPacks = (cardPacks: CardPacksType[]) => ({type: 'CARD-PACKS/SET-CARDS', cardPacks} as const)
 export const createCardPacks = (newPacks: CardPacksType) => ({type: 'CARD-PACKS/ADD-CARDS', newPacks} as const)
 export const setCurrentPage = (currentPage: number) => ({type: 'CARD-PACKS/SET-CURRENT-PAGE', currentPage} as const)
+export const setPageSize = (pageSize: number) => ({type: 'CARD-PACKS/SET-PAGE-SIZE', pageSize} as const)
 export const setPacksTotalCount = (packsTotalCount: number) => ({
     type: 'CARD-PACKS/SET-PACKS-TOTAL-COUNT',
     packsTotalCount
@@ -130,6 +133,7 @@ type ActionsType =
     | ReturnType<typeof createCardPacks>
     | ReturnType<typeof setCardPacks>
     | ReturnType<typeof setPacksTotalCount>
+    | ReturnType<typeof setPageSize>
 
 
 export type CardPacksType = {

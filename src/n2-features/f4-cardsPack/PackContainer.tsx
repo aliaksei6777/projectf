@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../n1-main/m2-bll/store";
-import React, {useEffect} from "react";
+import React, {ChangeEvent, useEffect} from "react";
 import {
     addCardPacksTC,
     CardPacksType,
     deleteCardPacksTC,
     getCardPacksTC,
-    setCardPacks,
+    setCardPacks, setPageSize,
 } from "./pack-reducer";
 import {Pack} from "./Pack";
 import {v1} from "uuid";
@@ -15,18 +15,31 @@ import {SearchPack} from "./SearchPack";
 import {ShowPacksCards} from "./ShowPacksCards";
 import {Redirect} from "react-router-dom";
 import {PATH} from "../../n1-main/m1-ui/u3-routes/Routes";
+import {Paginator} from "../../n3-components/Paginator/Paginator";
 
-export const PackContainer = () => {
+export const PackContainer = React.memo(() => {
+    console.log("render")
     const isLoggedIn = useSelector<RootStateType, boolean>(state => state.auth.isLoggedIn)
 
     const cardPacks = useSelector<RootStateType, CardPacksType[]>(state => state.cardPacks.cardPacks)
     const myId = useSelector<RootStateType, string>(state => state.auth.user._id)
     const packId = useSelector<RootStateType, string[]>(state => state.cardPacks.cardPacks.map(p => p._id))
 
+
+    const totalPageCount = useSelector<RootStateType, number>(state => state.cardPacks.packsTotalCount)
+    const currentPage = useSelector<RootStateType, number>(state => state.cardPacks.currentPage)
+    const pageSize = useSelector<RootStateType, number>(state => state.cardPacks.pageSize)
+
+    const pageChangeHandler = (pageNumber: number) => {dispatch(getCardPacksTC(pageNumber,pageSize))}
+
+    const changeCardsPerPage = (e: ChangeEvent<HTMLSelectElement>) => {dispatch(setPageSize(+e.currentTarget.value))}
+    console.log(pageSize)
+
     const dispatch = useDispatch()
+
     useEffect(() => {
-        dispatch(getCardPacksTC(1, 10))
-    }, [])
+        dispatch(getCardPacksTC(1, pageSize))
+    }, [pageSize])
 
     const tempPack: CardPacksType = {
         _id: v1(),
@@ -40,7 +53,7 @@ export const PackContainer = () => {
     }
 
     const showAllPacks = () => {
-        dispatch(getCardPacksTC(1, 10))
+        dispatch(getCardPacksTC(1, pageSize))
     }
 
     const deletePack = (id: string) => {
@@ -61,12 +74,29 @@ export const PackContainer = () => {
                     <SearchPack/>
                     <Pack cardPack={cardPacks} deletePack={deletePack}/>
                     <ButtonStyle onClick={() => dispatch(addCardPacksTC(tempPack))}>Add Pack</ButtonStyle>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: 'center'}}>
+                        <Paginator totalItemsCount={totalPageCount}
+                                   pageSize={10}
+                                   currentPage={currentPage}
+                                   portionSize={7}
+                                   onPageChanged={pageChangeHandler}/>
+                        <div>
+                            <span>Show </span>
+                            <select value={pageSize} onChange={changeCardsPerPage}>
+                                <option value={10}>10</option>
+                                <option value={20}>20</option>
+                                <option value={30}>30</option>
+                            </select>
+                            <span> Cards per Page</span>
+                        </div>
+                    </div>
+
                 </SecondColumn>
             </CardsStyledContainer>
         </DivContainerStyle>
 
     )
-}
+})
 
 
 //styled-components

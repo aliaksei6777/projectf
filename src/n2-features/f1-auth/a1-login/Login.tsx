@@ -53,6 +53,10 @@ export const Login = () => {
                         value={password}
                     />
                     <ShowPassword src={shape} onClick={passwordShowHandler}/>
+                    <Remember>
+                        <input type={"checkbox"} onChange={e => setRememberMe(e.currentTarget.checked)} />
+                        <span>Remember Me</span>
+                    </Remember>
                 </InputContainer>
                 <NavLinkForgotContainer>
                     <StyledForgotLink to={PATH.RECOVERY_PASSWORD}>Forgot Password</StyledForgotLink>
@@ -90,7 +94,6 @@ const FormContainer = styled.div`
   height: 540px;
   background: #F9F9FE;
   border-radius: 8px;
-  border: 1px solid black
 `
 const InputContainer = styled.div`
   display: flex;
@@ -137,9 +140,18 @@ const ShowPassword = styled.img`
   margin-top: 90px;
   margin-left: 300px;
 `
+
+const Remember = styled.div`
+  width: 80%;
+  margin-top: 10px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+`
 const NavLinkForgotContainer = styled.div`
   width: 80%;
-  margin: 50px auto 0px;
+  margin: 30px auto 0px;
   text-align: right;
 `
 

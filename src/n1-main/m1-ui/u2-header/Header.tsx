@@ -18,7 +18,7 @@ export const Header = () => {
                 <StyledLink to={PATH.LOGIN}>Sign In</StyledLink>
                 {/*<StyledLink to={PATH.REG}>Registration</StyledLink>*/}
                 {/*<StyledLink to={PATH.RECOVERY_PASSWORD}>Recovery Password</StyledLink>*/}
-                <StyledLink to={PATH.NEW_PASSWORD}>New Password</StyledLink>
+                {/*<StyledLink to={PATH.NEW_PASSWORD}>New Password</StyledLink>*/}
                 <StyledLink to={PATH.CARD_PACKS}>Cards Pack</StyledLink>
             </Nav>
             <div><Logout/></div>
