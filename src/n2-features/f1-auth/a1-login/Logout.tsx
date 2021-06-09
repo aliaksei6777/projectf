@@ -2,17 +2,19 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 import {logoutTC} from "./auth-reducer";
 import styled from "styled-components";
-import {Redirect} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
+import {PATH} from "../../../n1-main/m1-ui/u3-routes/Routes";
 
 type LoginPropsType = {}
 
 const Logout: React.FC<LoginPropsType> = () => {
 
+    const history = useHistory()
     const dispatch = useDispatch()
 
     let onclickHandler = () => {
         dispatch(logoutTC())
-        return <Redirect to={'/'}/>
+        history.push(PATH.LOGIN)
     }
     return (
         <StyledLogout onClick={onclickHandler}> LOGOUT</StyledLogout>
