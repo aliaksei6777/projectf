@@ -81,7 +81,7 @@ const InputContainer = styled.div`
 
 const SpanContainer = styled.span`
   align-self: end;
-  margin-left: 35px;
+  margin-left: 40px;
   margin-top: 10px;
   font-family: 'Popins', sans-serif;
   font-style: normal;
@@ -96,8 +96,10 @@ const InputRegistration = styled.input`
   width: 80%;
   border: none;
   border-bottom: 1px solid #24254A;
-  opacity: 0.2;
-
+  background: none;
+  //opacity: 0.2;
+  
+  color: black;
   &:focus {
     outline: none;
   }

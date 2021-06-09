@@ -42,6 +42,8 @@ const Table = styled.table`
   border: 3px solid #ECECF9;
   margin-left: 10px;
   margin-right: 10px;
+
+  filter: drop-shadow(0px 4px 14px rgba(45, 46, 70, 0.15));
 `
 
 const Thead = styled.thead`

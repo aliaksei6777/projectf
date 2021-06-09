@@ -33,19 +33,20 @@ export const Recovery = () => {
             <RecoveryContainer>
                 <FormContainer>
                     <TitleContainer>Forgot your password?</TitleContainer>
-                <InputContainer>
-                    <SpanContainer>Email</SpanContainer>
-                    <InputRegistration value={email} onChange={onChangeEmail} />
-               <Content>
-                   Enter your email address and we will send you further instructions
-               </Content>
-                    <ButtonContainer>
-                        <ButtonRegistration onClick={onClickHandler} disabled={appStatus === 'loading'}> Send Instructions</ButtonRegistration>
+                    <InputContainer>
+                        <SpanContainer>Email</SpanContainer>
+                        <InputRegistration value={email} onChange={onChangeEmail}/>
+                        <Content>
+                            Enter your email address and we will send you further instructions
+                        </Content>
+                        <ButtonContainer>
+                            <ButtonRegistration onClick={onClickHandler} disabled={appStatus === 'loading'}> Send
+                                Instructions</ButtonRegistration>
                         </ButtonContainer>
-                    <ContentRemember>
-                        Did you remember your password?
-                    </ContentRemember>
-                    <ContentLogging> Try logging in</ContentLogging>
+                        <ContentRemember>
+                            Did you remember your password?
+                        </ContentRemember>
+                        <ContentLogging> Try logging in</ContentLogging>
                     </InputContainer>
                 </FormContainer>
             </RecoveryContainer>
@@ -61,7 +62,6 @@ const RecoveryContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
 `
 const ErrorContainer = styled.div`
   margin-top: 30px;
@@ -126,12 +126,12 @@ const ButtonRegistration = styled.button`
   width: 266px;
   left: 0px;
   top: 0px;
- margin-top: 20px;
+  margin-top: 20px;
 
   &:active {
     background-color: #b1b1b1 !important;
   }
- 
+
   font-family: 'Popins', sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -157,9 +157,9 @@ const Content = styled.div`
   line-height: 24px;
   color: #2D2E46;
   opacity: 0.5;
-    `
+`
 const ContentRemember = styled.div`
-display: flex;
+  display: flex;
 
   width: 241px;
   height: 24px;

@@ -13,8 +13,12 @@ import {Pack} from "./Pack";
 import {v1} from "uuid";
 import {SearchPack} from "./SearchPack";
 import {ShowPacksCards} from "./ShowPacksCards";
+import {Redirect} from "react-router-dom";
+import {PATH} from "../../n1-main/m1-ui/u3-routes/Routes";
 
 export const PackContainer = () => {
+    const isLoggedIn = useSelector<RootStateType, boolean>(state => state.auth.isLoggedIn)
+
     const cardPacks = useSelector<RootStateType, CardPacksType[]>(state => state.cardPacks.cardPacks)
     const myId = useSelector<RootStateType, string>(state => state.auth.user._id)
     const packId = useSelector<RootStateType, string[]>(state => state.cardPacks.cardPacks.map(p => p._id))
@@ -43,7 +47,9 @@ export const PackContainer = () => {
         dispatch(deleteCardPacksTC(id))
     }
 
-
+    if (!isLoggedIn) {
+        return <Redirect to={PATH.LOGIN}/>
+    }
     return (
         <DivContainerStyle>
             <CardsStyledContainer>

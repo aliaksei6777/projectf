@@ -80,7 +80,6 @@ export const updateUserDataTC = (name?: string, avatar?: string) =>
 }
 
 
-//log in & log out
 export const loginTC = (email: string, password: string, rememberMe: boolean) =>
     async (dispatch: ThunkDispatch<RootStateType, unknown, ActionsType>) => {
     dispatch(setAppStatus('loading'))

@@ -8,11 +8,13 @@ import {store} from "./n1-main/m2-bll/store";
 import {HashRouter} from "react-router-dom";
 
 ReactDOM.render(
-    <HashRouter>
-        <Provider store={store}>
-            <App />
-        </Provider>
-    </HashRouter>,
+    <React.StrictMode>
+        <HashRouter>
+            <Provider store={store}>
+                <App />
+            </Provider>
+        </HashRouter>
+    </React.StrictMode>,
   document.getElementById('root')
 );
 
