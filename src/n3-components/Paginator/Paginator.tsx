@@ -16,12 +16,12 @@ export const Paginator: React.FC<PropsType> = ({
     const [portionNumber, setPortionNumber] = useState<number>(1)
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
     const rightPortionPageNumber = portionNumber * portionSize
-    const from = currentPage === 1 ? 1 : (currentPage - 1) * 4 + 1
+    const from = currentPage === 1 ? 1 : (currentPage - 1) * pageSize + 1
 
     return <>
         <PaginatorBlock>
             <Info>
-                <span>{from}-{from + 3} of {totalItemsCount} items</span>
+                <span>{from}-{from + pageSize - 1} of {totalItemsCount} items</span>
             </Info>
             <StyledPaginator>
                 {portionNumber > 1 &&

@@ -74,7 +74,7 @@ export const PackContainer = React.memo(() => {
                     <SearchPack/>
                     <Pack cardPack={cardPacks} deletePack={deletePack}/>
                     <ButtonStyle onClick={() => dispatch(addCardPacksTC(tempPack))}>Add Pack</ButtonStyle>
-                    <div style={{display: "flex", justifyContent: "center", alignItems: 'center'}}>
+                    <PaginatorStyled>
                         <Paginator totalItemsCount={totalPageCount}
                                    pageSize={10}
                                    currentPage={currentPage}
@@ -87,9 +87,9 @@ export const PackContainer = React.memo(() => {
                                 <option value={20}>20</option>
                                 <option value={30}>30</option>
                             </select>
-                            <span> Cards per Page</span>
+                            <span> cards per Page</span>
                         </div>
-                    </div>
+                    </PaginatorStyled>
 
                 </SecondColumn>
             </CardsStyledContainer>
@@ -155,4 +155,10 @@ const ButtonStyle = styled.button`
   letter-spacing: 0.01em;
   color: #ECECF9;
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+`
+
+const PaginatorStyled = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
