@@ -52,6 +52,7 @@ export const NewPassword = () => {
             <FormContainer>
                 <TitleContainer>NewPassword page</TitleContainer>
                 <InputContainer>
+                    <SpanContainer>Password</SpanContainer>
                     <InputRegistration
                         type={(!passwordShow) ? 'password' : 'text'}
                         onChange={onChangeDataInput(setEmail)}
@@ -64,7 +65,7 @@ export const NewPassword = () => {
                     </Content>
                     <ButtonContainer>
                         <ButtonRegistration onClick={onClickHandler}
-                                            disabled={appStatus === 'loading'}> send</ButtonRegistration>
+                                            disabled={appStatus === 'loading'}> Create new password</ButtonRegistration>
                     </ButtonContainer>
 
                 </InputContainer>
@@ -181,8 +182,23 @@ const Content = styled.div`
 `
 const FirstImgPassword = styled.img`
   position: absolute;
-  //margin-top: 90px;
+  margin-top: 30px;
   margin-left: 150px;
+`
+
+const SpanContainer = styled.span`
+
+  align-self: end;
+  margin-left: 35px;
+  margin-top: 10px;
+  margin-bottom: 0;
+  font-family: 'Popins', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 20px;
+  color: #24254A;
+  opacity: 0.5;
 `
 
 
