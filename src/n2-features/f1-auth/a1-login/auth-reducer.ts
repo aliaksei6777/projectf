@@ -1,4 +1,3 @@
-import {Dispatch} from 'redux';
 import {ThunkDispatch} from 'redux-thunk';
 import {setAppError, SetAppErrorActionType, setAppStatus, SetAppStatusActionType } from '../../../n1-main/m1-ui/app-reducer';
 import { RootStateType } from '../../../n1-main/m2-bll/store';
@@ -24,9 +23,9 @@ export const authReducer = (state: AuthInitialStateType = initialState, action: 
     switch (action.type) {
         case 'LOGIN/SET-IS-LOGGED-IN':
             return {...state, isLoggedIn: action.payload.isLoggedIn}
-        case 'LOGIN/SET_USER_DATA':
+        case 'LOGIN/SET-USER-DATA':
             return {...state, user: action.payload.userData}
-        case  'LOGIN/UPDATE_USER_DATA':
+        case  'LOGIN/UPDATE-USER-DATA':
             return {
                 ...state,
                 user: {...state.user, name: action.payload.user.name, avatar: action.payload.user.avatar}
@@ -39,10 +38,10 @@ export const setIsLoggedIn = (isLoggedIn: boolean) =>
     ({type: 'LOGIN/SET-IS-LOGGED-IN', payload: {isLoggedIn}}) as const
 
 export const setUserData = (userData: UserDataType) =>
-    ({type: 'LOGIN/SET_USER_DATA', payload: {userData}}) as const
+    ({type: 'LOGIN/SET-USER-DATA', payload: {userData}}) as const
 
 export const updateUserData = (user: UserDataType) =>
-    ({type: 'LOGIN/UPDATE_USER_DATA', payload: {user}} as const)
+    ({type: 'LOGIN/UPDATE-USER-DATA', payload: {user}} as const)
 
 // get & update profile
 export const getAuthUserDataTC = () => async (dispatch: ThunkDispatch<RootStateType, unknown, ActionsType>) => {

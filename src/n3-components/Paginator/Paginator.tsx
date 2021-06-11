@@ -5,17 +5,18 @@ export const Paginator: React.FC<PropsType> = ({
                                                    totalItemsCount,
                                                    pageSize,
                                                    currentPage,
-                                                   onPageChanged, portionSize
+                                                   onPageChanged
                                                }) => {
+    const size = 7
     const pagesCount = Math.ceil(totalItemsCount / pageSize)
     const pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-    const portionCount = Math.ceil(pagesCount / portionSize)
-    const [portionNumber, setPortionNumber] = useState<number>(1)
-    const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
-    const rightPortionPageNumber = portionNumber * portionSize
+    const count = Math.ceil(pagesCount / size)
+    const [number, setNumber] = useState<number>(1)
+    const leftPageNumber = (number - 1) * size + 1
+    const rightPageNumber = number * size
     const from = currentPage === 1 ? 1 : (currentPage - 1) * pageSize + 1
 
     return <>
@@ -24,13 +25,13 @@ export const Paginator: React.FC<PropsType> = ({
                 <span>{from}-{from + pageSize - 1} of {totalItemsCount} items</span>
             </Info>
             <StyledPaginator>
-                {portionNumber > 1 &&
+                {number > 1 &&
                 <button style={{background: "none"}} onClick={() => {
-                    setPortionNumber(portionNumber - 1)
+                    setNumber(number - 1)
                 }}>&lt;</button>
                 }
                 {pages
-                    .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+                    .filter(p => p >= leftPageNumber && p <= rightPageNumber)
                     .map(p => {
                         return <PaginatorItem currentPage={currentPage} p={p}
                                               key={p}
@@ -41,8 +42,8 @@ export const Paginator: React.FC<PropsType> = ({
                         </PaginatorItem>
                     })}
                 {
-                    portionCount > portionNumber && <button style={{background: "none"}}  onClick={() => {
-                        setPortionNumber(portionNumber + 1)
+                    count > number && <button style={{background: "none"}}  onClick={() => {
+                        setNumber(number + 1)
                     }}>&gt;</button>
                 }
             </StyledPaginator>
@@ -109,6 +110,5 @@ type PropsType = {
     totalItemsCount: number,
     pageSize: number,
     currentPage: number,
-    portionSize: number,
     onPageChanged: (p: number) => void,
 }

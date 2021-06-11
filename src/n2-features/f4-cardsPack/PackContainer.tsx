@@ -78,7 +78,6 @@ export const PackContainer = React.memo(() => {
                         <Paginator totalItemsCount={totalPageCount}
                                    pageSize={10}
                                    currentPage={currentPage}
-                                   portionSize={7}
                                    onPageChanged={pageChangeHandler}/>
                         <div>
                             <span>Show </span>
