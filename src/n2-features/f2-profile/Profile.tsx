@@ -40,7 +40,7 @@ export const Profile = () => {
                         ? <form  onSubmit={handleSubmit(onSubmitHandler)}>
                                 <input
                                        type="text"
-                                       placeholder={'Enter name'}
+                                       placeholder={'Enter new name'}
                                        autoFocus
                                        {...register("name",{required: true,
                                            validate: value => value.length >= 2})}
@@ -49,8 +49,7 @@ export const Profile = () => {
                                 <button onClick={() => setEditMode(false)}>Cancel</button>
                             </form>
                         : <div >
-                                <span/>
-                                <span>{profileData && profileData.name}</span>
+                                <span>{profileData && profileData.name} </span>
                                 <button onClick={() => setEditMode(true)}
                                 >Edit Name</button>
                         </div>
@@ -58,6 +57,11 @@ export const Profile = () => {
             </div>
             <div>
                 <img src={profileData! && profileData.avatar} alt="" width={'70px'}/>
+            </div>
+            <div>
+                <span>Total packs: </span>
+                <span>{profileData && profileData.publicCardPacksCount}</span>
+
             </div>
             <div>
                 {errors.name && 'Name is required more than 2 letters'}

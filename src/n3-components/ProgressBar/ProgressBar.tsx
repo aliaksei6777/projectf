@@ -20,7 +20,6 @@ const Progress = styled.div`
   background: #ffffff;
   overflow: hidden;
 `
-
 const progressAnimation = keyframes`
   0% {
     background-position: 100%
@@ -29,7 +28,6 @@ const progressAnimation = keyframes`
     background-position: 0
   }
 `
-
 const ProgressBarStyled = styled.span`
   display: block;
   width: 100%;
