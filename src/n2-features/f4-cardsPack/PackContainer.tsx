@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../n1-main/m2-bll/store";
-import React, {ChangeEvent, useEffect} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {
     addCardPacksTC,
     CardPacksType,
@@ -16,6 +16,7 @@ import {ShowPacksCards} from "./ShowPacksCards";
 import {Redirect} from "react-router-dom";
 import {PATH} from "../../n1-main/m1-ui/u3-routes/Routes";
 import {Paginator} from "../../n3-components/Paginator/Paginator";
+import {HiringModal} from "../../n3-components/Modal/Modal";
 
 export const PackContainer = React.memo(() => {
     console.log("render")
@@ -23,16 +24,19 @@ export const PackContainer = React.memo(() => {
 
     const cardPacks = useSelector<RootStateType, CardPacksType[]>(state => state.cardPacks.cardPacks)
     const myId = useSelector<RootStateType, string>(state => state.auth.user._id)
-    const packId = useSelector<RootStateType, string[]>(state => state.cardPacks.cardPacks.map(p => p._id))
 
 
     const totalPageCount = useSelector<RootStateType, number>(state => state.cardPacks.packsTotalCount)
     const currentPage = useSelector<RootStateType, number>(state => state.cardPacks.currentPage)
     const pageSize = useSelector<RootStateType, number>(state => state.cardPacks.pageSize)
 
-    const pageChangeHandler = (pageNumber: number) => {dispatch(getCardPacksTC(pageNumber,pageSize))}
+    const pageChangeHandler = (pageNumber: number) => {
+        dispatch(getCardPacksTC(pageNumber, pageSize))
+    }
 
-    const changeCardsPerPage = (e: ChangeEvent<HTMLSelectElement>) => {dispatch(setPageSize(+e.currentTarget.value))}
+    const changeCardsPerPage = (e: ChangeEvent<HTMLSelectElement>) => {
+        dispatch(setPageSize(+e.currentTarget.value))
+    }
     console.log(pageSize)
 
     const dispatch = useDispatch()
@@ -72,7 +76,7 @@ export const PackContainer = React.memo(() => {
                 <SecondColumn>
                     <H3>Pack list</H3>
                     <SearchPack/>
-                    <Pack cardPack={cardPacks} deletePack={deletePack}/>
+                    <Pack cardPack={cardPacks} deletePack={deletePack} myId={myId}/>
                     <ButtonStyle onClick={() => dispatch(addCardPacksTC(tempPack))}>Add Pack</ButtonStyle>
                     <PaginatorStyled>
                         <Paginator totalItemsCount={totalPageCount}
@@ -89,7 +93,6 @@ export const PackContainer = React.memo(() => {
                             <span> cards per Page</span>
                         </div>
                     </PaginatorStyled>
-
                 </SecondColumn>
             </CardsStyledContainer>
         </DivContainerStyle>
@@ -114,7 +117,7 @@ const FirstColumn = styled.div`
   background: #ECECF9;
   min-height: 575px;
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   align-items: center;
   justify-content: start;
 

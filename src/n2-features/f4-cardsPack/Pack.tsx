@@ -1,11 +1,17 @@
 import {CardPacksType} from "./pack-reducer";
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../n1-main/m1-ui/u3-routes/Routes";
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
+import {HiringModal} from "../../n3-components/Modal/Modal";
 
 
 export const Pack: React.FC<CardType> = (props) => {
+    const [activeModal, setActiveModal] = useState(true)
+    const handlerModal = () => {
+        setActiveModal(true)
+    }
+
     return <>
         <Table>
             <Thead>
@@ -22,16 +28,17 @@ export const Pack: React.FC<CardType> = (props) => {
                     <TdStyled>{cardPack.updated}</TdStyled>
                     <TdStyled>{cardPack.user_name}</TdStyled>
                     <TdStyled>
-                        <ButtonDelete onClick={() => props.deletePack(cardPack._id)}>Delete</ButtonDelete>
-                        <ButtonEdit>Edit</ButtonEdit>
+                        {cardPack.user_id === props.myId &&
+                        <ButtonDelete onClick={() => props.deletePack(cardPack._id)}>Delete</ButtonDelete>}
+                        {cardPack.user_id === props.myId && <ButtonEdit>Edit</ButtonEdit>}
                         <ButtonLearn>
                             <StyledLink to={PATH.CARDS + '/' + cardPack._id}>Learn</StyledLink>
                         </ButtonLearn>
                     </TdStyled>
                 </TrStyled>
             })}
-
         </Table>
+        <HiringModal active={activeModal} setActive={setActiveModal}><div></div></HiringModal>
     </>
 }
 
@@ -63,13 +70,14 @@ const ThStyled = styled.th`
 `
 
 const TrStyled = styled.tr`
-  &:nth-child(even){
+  &:nth-child(even) {
     background-color: #FFFFFF;
   }
-  &:nth-child(odd){
-    background-color:  #ECECF9;
+
+  &:nth-child(odd) {
+    background-color: #ECECF9;
   }
-  
+
 `
 
 const TdStyled = styled.td`
@@ -126,5 +134,6 @@ const StyledLink = styled(NavLink)`
 type CardType = {
     cardPack: Array<CardPacksType>
     deletePack: (id: string) => void
+    myId: string
 }
 
