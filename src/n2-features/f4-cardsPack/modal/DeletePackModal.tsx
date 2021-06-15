@@ -3,29 +3,25 @@ import React from "react";
 import styled from "styled-components";
 
 
-export const AddPackModal = (props: addPackModalType) => {
+export const DeletePackModal = (props: deletePackModalType) => {
     return (
         <HiringModal active={props.activeModal} setActive={props.setActiveModal}>
             <ModalTitle>Add Pack</ModalTitle>
             <SpanContainerStyle>
-                <ModalSpan>Pack Name</ModalSpan>
-                <input type={'text'} value={props.value} onChange={props.onChangeInputModal}/>
+                <ModalSpan>Do you really want to remove pack?</ModalSpan>
+                <ModalSpan>All cards will be excluded from this course.</ModalSpan>
             </SpanContainerStyle>
-            <ModalButtonDelete
-                onClick={props.addPack}>Add</ModalButtonDelete>
+            <ModalButtonDelete onClick={props.deletePack}>Delete</ModalButtonDelete>
         </HiringModal>
     )
 }
 
 //type
-type addPackModalType = {
+type deletePackModalType = {
     activeModal: boolean
     setActiveModal: Function
-    onChangeInputModal: (e: React.FormEvent<HTMLInputElement>) => void
-    addPack: () => void
-    value: string
+    deletePack: () => void
 }
-
 
 //style
 const ModalTitle = styled.h4`
@@ -41,7 +37,6 @@ const SpanContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
-  margin-right: 150px;
 `
 
 const ModalSpan = styled.span`

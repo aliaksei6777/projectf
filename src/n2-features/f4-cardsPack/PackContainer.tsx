@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../n1-main/m2-bll/store";
 import React, {ChangeEvent, useEffect, useState} from "react";
 import {
+    addCardPacksTC,
     CardPacksType,
     deleteCardPacksTC,
     getCardPacksTC,
@@ -17,6 +18,7 @@ import {Redirect} from "react-router-dom";
 import {PATH} from "../../n1-main/m1-ui/u3-routes/Routes";
 import {Paginator} from "../../n3-components/Paginator/Paginator";
 import {AddPackModal} from "./modal/AddPackModal";
+import {DeletePackModal} from "./modal/DeletePackModal";
 
 export const PackContainer = React.memo(() => {
         console.log("render")
@@ -26,18 +28,24 @@ export const PackContainer = React.memo(() => {
         const totalPageCount = useSelector<RootStateType, number>(state => state.cardPacks.packsTotalCount)
         const currentPage = useSelector<RootStateType, number>(state => state.cardPacks.currentPage)
         const pageSize = useSelector<RootStateType, number>(state => state.cardPacks.pageSize)
-        const [activeModal, setActiveModal] = useState(false)
-        const [successModal, setSuccessModal] = useState(false)
+        const [activeDeletePackModal, setActiveDeletePackModal] = useState(false)
+        const [activeAddPackModal, setActiveAddPackModal] = useState(false)
+        const [valueInput, setValueInput] = useState<string>('')
+        const [idPack, setIdPack] = useState<string>('')
         const dispatch = useDispatch()
-        const tempPack: CardPacksType = {
-            _id: v1(),
-            name: "test name",
-            type: "test type"
-        }
 
         useEffect(() => {
             dispatch(getCardPacksTC(1, pageSize))
         }, [pageSize])
+
+        const onChangeInputModal = (e: React.FormEvent<HTMLInputElement>) => {
+            setValueInput(e.currentTarget.value)
+        }
+
+        const addPack = () => {
+            dispatch(addCardPacksTC({_id: v1(), name: valueInput}))
+            setActiveAddPackModal(false)
+        }
 
         const pageChangeHandler = (pageNumber: number) => {
             dispatch(getCardPacksTC(pageNumber, pageSize))
@@ -56,12 +64,14 @@ export const PackContainer = React.memo(() => {
             dispatch(getCardPacksTC(1, pageSize))
         }
 
-        const deletePack = (id: string) => {
-            dispatch(deleteCardPacksTC(id))
+        const deletePack = () => {
+            dispatch(deleteCardPacksTC(idPack))
+            setActiveDeletePackModal(false)
         }
 
-        const setSuccess = () => {
-            setSuccessModal(true)
+        const setActiveDeleteModal = (id: string) => {
+            setActiveDeletePackModal(true)
+            setIdPack(id)
         }
 
         if (!isLoggedIn) {
@@ -78,8 +88,11 @@ export const PackContainer = React.memo(() => {
                     <SecondColumn>
                         <H3>Pack list</H3>
                         <SearchPack/>
-                        <Pack cardPack={cardPacks} deletePack={deletePack} myId={myId}/>
-                        <ButtonStyle onClick={() => setActiveModal(true)}>Add Pack</ButtonStyle>
+                        <Pack
+                            cardPack={cardPacks}
+                            myId={myId}
+                            setActiveDeleteModal={setActiveDeleteModal}/>
+                        <ButtonStyle onClick={() => setActiveAddPackModal(true)}>Add Pack</ButtonStyle>
                         <PaginatorStyled>
                             <Paginator totalItemsCount={totalPageCount}
                                        pageSize={10}
@@ -95,11 +108,20 @@ export const PackContainer = React.memo(() => {
                                 <span> cards per Page</span>
                             </div>
                         </PaginatorStyled>
-                        <AddPackModal activeModal={activeModal} setActiveModal={setActiveModal} setSuccess={setSuccess}/>
+                        <AddPackModal
+                            activeModal={activeAddPackModal}
+                            setActiveModal={setActiveAddPackModal}
+                            addPack={addPack}
+                            onChangeInputModal={onChangeInputModal}
+                            value={valueInput}
+                        />
+                        <DeletePackModal
+                            activeModal={activeDeletePackModal}
+                            setActiveModal={setActiveDeletePackModal}
+                            deletePack={deletePack}/>
                     </SecondColumn>
                 </CardsStyledContainer>
             </DivContainerStyle>
-
         )
     }
 )

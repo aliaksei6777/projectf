@@ -3,7 +3,6 @@ import {NavLink} from "react-router-dom";
 import {PATH} from "../../n1-main/m1-ui/u3-routes/Routes";
 import React from "react";
 import styled from "styled-components";
-import {HiringModal} from "../../n3-components/Modal/Modal";
 
 
 export const Pack: React.FC<CardType> = (props) => {
@@ -24,8 +23,7 @@ export const Pack: React.FC<CardType> = (props) => {
                     <TdStyled>{cardPack.user_name}</TdStyled>
                     <TdStyled>
                         {cardPack.user_id === props.myId &&
-                        <ButtonDelete
-                            onClick={() => props.deletePack(cardPack._id)}>
+                        <ButtonDelete onClick={() => props.setActiveDeleteModal(cardPack._id)}>
                             Delete
                         </ButtonDelete>}
                         {cardPack.user_id === props.myId && <ButtonEdit>Edit</ButtonEdit>}
@@ -37,6 +35,14 @@ export const Pack: React.FC<CardType> = (props) => {
             })}
         </Table>
     </>
+}
+
+
+//types
+type CardType = {
+    cardPack: Array<CardPacksType>
+    setActiveDeleteModal: (id: string) => void
+    myId: string
 }
 
 //styled-components
@@ -127,10 +133,4 @@ const StyledLink = styled(NavLink)`
   color: #21268F;
 `
 
-//types
-type CardType = {
-    cardPack: Array<CardPacksType>
-    deletePack: (id: string) => void
-    myId: string
-}
 
