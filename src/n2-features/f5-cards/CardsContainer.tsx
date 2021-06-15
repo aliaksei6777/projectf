@@ -14,6 +14,7 @@ export const CardsContainer = () => {
     const {id} = useParams<{ id: string }>()
     const dispatch = useDispatch()
 
+
     useEffect(() => {
         dispatch(getCardsTC(id))
     }, [])

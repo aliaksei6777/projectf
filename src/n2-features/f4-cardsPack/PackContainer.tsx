@@ -3,11 +3,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../n1-main/m2-bll/store";
 import React, {ChangeEvent, useEffect, useState} from "react";
 import {
-    addCardPacksTC,
     CardPacksType,
     deleteCardPacksTC,
     getCardPacksTC,
-    setCardPacks, setPageSize,
+    setCardPacks,
+    setPageSize,
 } from "./pack-reducer";
 import {Pack} from "./Pack";
 import {v1} from "uuid";
@@ -16,89 +16,93 @@ import {ShowPacksCards} from "./ShowPacksCards";
 import {Redirect} from "react-router-dom";
 import {PATH} from "../../n1-main/m1-ui/u3-routes/Routes";
 import {Paginator} from "../../n3-components/Paginator/Paginator";
-import {HiringModal} from "../../n3-components/Modal/Modal";
+import {AddPackModal} from "./modal/AddPackModal";
 
 export const PackContainer = React.memo(() => {
-    console.log("render")
-    const isLoggedIn = useSelector<RootStateType, boolean>(state => state.auth.isLoggedIn)
+        console.log("render")
+        const isLoggedIn = useSelector<RootStateType, boolean>(state => state.auth.isLoggedIn)
+        const cardPacks = useSelector<RootStateType, CardPacksType[]>(state => state.cardPacks.cardPacks)
+        const myId = useSelector<RootStateType, string>(state => state.auth.user._id)
+        const totalPageCount = useSelector<RootStateType, number>(state => state.cardPacks.packsTotalCount)
+        const currentPage = useSelector<RootStateType, number>(state => state.cardPacks.currentPage)
+        const pageSize = useSelector<RootStateType, number>(state => state.cardPacks.pageSize)
+        const [activeModal, setActiveModal] = useState(false)
+        const [successModal, setSuccessModal] = useState(false)
+        const dispatch = useDispatch()
+        const tempPack: CardPacksType = {
+            _id: v1(),
+            name: "test name",
+            type: "test type"
+        }
 
-    const cardPacks = useSelector<RootStateType, CardPacksType[]>(state => state.cardPacks.cardPacks)
-    const myId = useSelector<RootStateType, string>(state => state.auth.user._id)
+        useEffect(() => {
+            dispatch(getCardPacksTC(1, pageSize))
+        }, [pageSize])
+
+        const pageChangeHandler = (pageNumber: number) => {
+            dispatch(getCardPacksTC(pageNumber, pageSize))
+        }
+
+        const changeCardsPerPage = (e: ChangeEvent<HTMLSelectElement>) => {
+            dispatch(setPageSize(+e.currentTarget.value))
+        }
+
+        const showMyPacks = () => {
+            const myCardPack = cardPacks.filter(c => c.user_id === myId)
+            dispatch(setCardPacks(myCardPack))
+        }
+
+        const showAllPacks = () => {
+            dispatch(getCardPacksTC(1, pageSize))
+        }
+
+        const deletePack = (id: string) => {
+            dispatch(deleteCardPacksTC(id))
+        }
+
+        const setSuccess = () => {
+            setSuccessModal(true)
+        }
+
+        if (!isLoggedIn) {
+            return <Redirect to={PATH.LOGIN}/>
+        }
 
 
-    const totalPageCount = useSelector<RootStateType, number>(state => state.cardPacks.packsTotalCount)
-    const currentPage = useSelector<RootStateType, number>(state => state.cardPacks.currentPage)
-    const pageSize = useSelector<RootStateType, number>(state => state.cardPacks.pageSize)
+        return (
+            <DivContainerStyle>
+                <CardsStyledContainer>
+                    <FirstColumn>
+                        <ShowPacksCards showMyPacks={showMyPacks} showAllPacks={showAllPacks}/>
+                    </FirstColumn>
+                    <SecondColumn>
+                        <H3>Pack list</H3>
+                        <SearchPack/>
+                        <Pack cardPack={cardPacks} deletePack={deletePack} myId={myId}/>
+                        <ButtonStyle onClick={() => setActiveModal(true)}>Add Pack</ButtonStyle>
+                        <PaginatorStyled>
+                            <Paginator totalItemsCount={totalPageCount}
+                                       pageSize={10}
+                                       currentPage={currentPage}
+                                       onPageChanged={pageChangeHandler}/>
+                            <div>
+                                <span>Show </span>
+                                <select value={pageSize} onChange={changeCardsPerPage}>
+                                    <option value={10}>10</option>
+                                    <option value={20}>20</option>
+                                    <option value={30}>30</option>
+                                </select>
+                                <span> cards per Page</span>
+                            </div>
+                        </PaginatorStyled>
+                        <AddPackModal activeModal={activeModal} setActiveModal={setActiveModal} setSuccess={setSuccess}/>
+                    </SecondColumn>
+                </CardsStyledContainer>
+            </DivContainerStyle>
 
-    const pageChangeHandler = (pageNumber: number) => {
-        dispatch(getCardPacksTC(pageNumber, pageSize))
+        )
     }
-
-    const changeCardsPerPage = (e: ChangeEvent<HTMLSelectElement>) => {
-        dispatch(setPageSize(+e.currentTarget.value))
-    }
-    console.log(pageSize)
-
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(getCardPacksTC(1, pageSize))
-    }, [pageSize])
-
-    const tempPack: CardPacksType = {
-        _id: v1(),
-        name: "test name",
-        type: "test type"
-    }
-
-    const showMyPacks = () => {
-        const myCardPack = cardPacks.filter(c => c.user_id === myId)
-        dispatch(setCardPacks(myCardPack))
-    }
-
-    const showAllPacks = () => {
-        dispatch(getCardPacksTC(1, pageSize))
-    }
-
-    const deletePack = (id: string) => {
-        dispatch(deleteCardPacksTC(id))
-    }
-
-    if (!isLoggedIn) {
-        return <Redirect to={PATH.LOGIN}/>
-    }
-    return (
-        <DivContainerStyle>
-            <CardsStyledContainer>
-                <FirstColumn>
-                    <ShowPacksCards showMyPacks={showMyPacks} showAllPacks={showAllPacks}/>
-                </FirstColumn>
-                <SecondColumn>
-                    <H3>Pack list</H3>
-                    <SearchPack/>
-                    <Pack cardPack={cardPacks} deletePack={deletePack} myId={myId}/>
-                    <ButtonStyle onClick={() => dispatch(addCardPacksTC(tempPack))}>Add Pack</ButtonStyle>
-                    <PaginatorStyled>
-                        <Paginator totalItemsCount={totalPageCount}
-                                   pageSize={10}
-                                   currentPage={currentPage}
-                                   onPageChanged={pageChangeHandler}/>
-                        <div>
-                            <span>Show </span>
-                            <select value={pageSize} onChange={changeCardsPerPage}>
-                                <option value={10}>10</option>
-                                <option value={20}>20</option>
-                                <option value={30}>30</option>
-                            </select>
-                            <span> cards per Page</span>
-                        </div>
-                    </PaginatorStyled>
-                </SecondColumn>
-            </CardsStyledContainer>
-        </DivContainerStyle>
-
-    )
-})
+)
 
 
 //styled-components

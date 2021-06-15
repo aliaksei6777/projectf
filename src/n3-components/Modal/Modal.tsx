@@ -6,28 +6,18 @@ type ModalType = {
     active: boolean
     setActive: Function
     children: React.ReactNode
-
-
 }
 
 export const HiringModal = (props: ModalType) => {
     return (
         <div>
             {props.active
-                ? <ActiveModalContainerStyle>
-                    <ActiveModalContentStyle onClick={e => e.stopPropagation()}>
-                        {props.children}
-                        <button onClick={() => props.setActive(false)}>Cancel</button>
-                    </ActiveModalContentStyle>
-                </ActiveModalContainerStyle>
-
-                : <ModalContainerStyle>
-                    <ModalContentStyle
-                        onClick={e => e.stopPropagation()}>
-                        {props.children}
-                        <button onClick={() => props.setActive(false)}>Cancel</button>
-                    </ModalContentStyle>
-                </ModalContainerStyle>
+            && <ActiveModalContainerStyle>
+                <ActiveModalContentStyle>
+                    {props.children}
+                    <ButtonCancelStyle onClick={() => props.setActive(false)}>Cancel</ButtonCancelStyle>
+                </ActiveModalContentStyle>
+            </ActiveModalContainerStyle>
             }
         </div>
 
@@ -36,7 +26,7 @@ export const HiringModal = (props: ModalType) => {
 }
 
 
-const ModalContainerStyle = styled.div`
+const ActiveModalContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,30 +38,28 @@ const ModalContainerStyle = styled.div`
   top: 0;
   left: 0;
 @include flexable(center, center, row);
-  opacity: 0;
   transition: 0.5s;
-  pointer-events: none;
   z-index: 99999;
-`
-
-const ActiveModalContainerStyle = styled(ModalContainerStyle)`
   opacity: 1;
   pointer-events: all;
 `
 
-const ModalContentStyle = styled.div`
-  background-color: white;
+const ActiveModalContentStyle = styled.div`
+  background-color: #F9F9FE;
   width: 350px;
-  height: 400px;
-  transform: scale(0.5);
+  height: 250px;
   transition: 0.4s all;
 @include flexable(center, center, row);
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  transform: scale(1);
+  border-radius: 2px;
+  position: relative;
 `
 
-const ActiveModalContentStyle = styled(ModalContentStyle)`
-  transform: scale(1);
+const ButtonCancelStyle = styled.button`
+  position: absolute;
+  top: 200px;
+  left: 30px;
 `
