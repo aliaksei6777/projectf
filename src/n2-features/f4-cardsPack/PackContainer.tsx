@@ -77,7 +77,6 @@ export const PackContainer = React.memo(() => {
             setIdPack(id)
         }
 
-
         const setActiveEditModal = (id: string, name: string) => {
             setActiveEditPackModal(true)
             setIdPack(id)
@@ -102,14 +101,13 @@ export const PackContainer = React.memo(() => {
                     </FirstColumn>
                     <SecondColumn>
                         <H3>Pack list</H3>
-                        <SearchPack/>
+                        <SearchPack setActiveAddPackModal={setActiveAddPackModal}/>
                         <Pack
                             cardPack={cardPacks}
                             myId={myId}
                             setActiveDeleteModal={setActiveDeleteModal}
                             setActiveEditModal={setActiveEditModal}
                         />
-                        <ButtonStyle onClick={() => setActiveAddPackModal(true)}>Add Pack</ButtonStyle>
                         <PaginatorStyled>
                             <Paginator totalItemsCount={totalPageCount}
                                        pageSize={10}

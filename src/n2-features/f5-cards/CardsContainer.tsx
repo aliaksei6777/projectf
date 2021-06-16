@@ -28,7 +28,6 @@ export const CardsContainer = () => {
         dispatch(getCardsTC(id))
     }, [])
 
-
     const onChangeInputQuestionModal = (e: React.FormEvent<HTMLInputElement>) => {
         setValueInputQuestion(e.currentTarget.value)
     }
@@ -67,14 +66,14 @@ export const CardsContainer = () => {
     return (
         <CardStyled>
             <CardsStyledContainer>
-                <SearchCard/>
+                <SearchCard setActiveAddCardModal={setActiveAddCardModal}/>
                 <Card
                     myId={myId}
                     card={cards}
                     setActiveDeleteModal={setActiveDeleteModal}
                     setActiveEditModal={setActiveEditModal}
                 />
-                <ButtonStyle onClick={() => setActiveAddCardModal(true)}>ADD</ButtonStyle>
+               {/* <ButtonStyle onClick={() => setActiveAddCardModal(true)}>ADD</ButtonStyle>*/}
                 <AddCardModal
                     activeModal={activeAddCardModal}
                     setActiveModal={setActiveAddCardModal}

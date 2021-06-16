@@ -25,8 +25,7 @@ export const Card: React.FC<CardPropsType> = ({card, myId, setActiveDeleteModal,
                         <ButtonDelete onClick={() => setActiveDeleteModal(card._id)}>DELETE</ButtonDelete>
                         }
                         {card.user_id === myId
-                        && <ButtonEdit
-                            onClick={() => setActiveEditModal(card._id, card.question, card.answer)}>Edit</ButtonEdit>
+                        && <ButtonEdit onClick={() => setActiveEditModal(card._id, card.question, card.answer)}>Edit</ButtonEdit>
                         }
                     </TdStyled>
                 </TrStyled>
