@@ -4,6 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../../n1-main/m2-bll/store";
 import {sendRecoveryEmail} from "./recovery-thunk";
 import {setAppError, setAppStatus} from "../../../n1-main/m1-ui/app-reducer";
+import {PATH} from "../../../n1-main/m1-ui/u3-routes/Routes";
+import {NavLink} from "react-router-dom";
 
 
 export const Recovery = () => {
@@ -46,7 +48,7 @@ export const Recovery = () => {
                         <ContentRemember>
                             Did you remember your password?
                         </ContentRemember>
-                        <ContentLogging> Try logging in</ContentLogging>
+                            <NavLinkContentLogging to={PATH.LOGIN}> Try logging in</NavLinkContentLogging>
                     </InputContainer>
                 </FormContainer>
             </RecoveryContainer>
@@ -105,7 +107,6 @@ const InputRegistration = styled.input`
   border: none;
   border-bottom: 1px solid #24254A;
   opacity: 0.2;
-
   &:focus {
     outline: none;
   }
@@ -127,7 +128,6 @@ const ButtonRegistration = styled.button`
   left: 0px;
   top: 0px;
   margin-top: 20px;
-
   &:active {
     background-color: #b1b1b1 !important;
   }
@@ -143,7 +143,6 @@ const ButtonRegistration = styled.button`
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
 `
 
-
 const Content = styled.div`
   width: 347px;
   height: 48px;
@@ -158,45 +157,37 @@ const Content = styled.div`
   color: #2D2E46;
   opacity: 0.5;
 `
+
 const ContentRemember = styled.div`
   display: flex;
-
   width: 241px;
   height: 24px;
   left: 520px;
-  margin-top: 53px;
-
+  margin-top: 40px;
   font-family: SF UI Display;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 24px;
   /* identical to box height, or 150% */
-
   text-align: center;
-
   color: #2D2E46;
-
   opacity: 0.5;
 `
 
-const ContentLogging = styled.div`
-
+const NavLinkContentLogging = styled(NavLink)`
+text-decoration: none;
   display: flex;
   width: 98px;
   height: 24px;
   left: 591px;
-  margin-top: 50px;
-
-  font-family: SF UI Display;
+  margin-top: 20px;
+  //font-family: SF UI Display;
   font-style: normal;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 24px;
-  /* identical to box height, or 150% */
-
   text-align: center;
-
   color: #21268F;
 `
 
@@ -213,4 +204,5 @@ const SpanContainer = styled.span`
   color: #24254A;
   opacity: 0.5;
 `
+
 
