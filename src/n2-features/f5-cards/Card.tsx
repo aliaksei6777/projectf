@@ -1,10 +1,9 @@
 import {CardType} from "./cards-reducer";
 import React from "react";
 import styled from "styled-components";
-import {NavLink} from "react-router-dom";
 
 
-export const Card: React.FC<CardPropsType> = ({card, deleteCard}) => {
+export const Card: React.FC<CardPropsType> = ({card, myId, setActiveDeleteModal, setActiveEditModal}) => {
     return <>
         <Table>
             <Thead>
@@ -21,13 +20,27 @@ export const Card: React.FC<CardPropsType> = ({card, deleteCard}) => {
                     <TdStyled>{card.updated}</TdStyled>
                     <TdStyled>{card.grade}</TdStyled>
                     <TdStyled>
-                        <ButtonDelete onClick={() => deleteCard(card._id)}>DELETE</ButtonDelete>
-                        <ButtonEdit>Edit</ButtonEdit>
+                        {card.user_id === myId
+                        &&
+                        <ButtonDelete onClick={() => setActiveDeleteModal(card._id)}>DELETE</ButtonDelete>
+                        }
+                        {card.user_id === myId
+                        && <ButtonEdit
+                            onClick={() => setActiveEditModal(card._id, card.question, card.answer)}>Edit</ButtonEdit>
+                        }
                     </TdStyled>
                 </TrStyled>
             })}
         </Table>
     </>
+}
+
+//types
+type CardPropsType = {
+    card: CardType[]
+    myId: string
+    setActiveDeleteModal: (id: string) => void
+    setActiveEditModal: (id: string, question: string, answer: string) => void
 }
 
 //styled-components
@@ -102,9 +115,5 @@ const ButtonEdit = styled.button`
   }
 `
 
-//types
-type CardPropsType = {
-    card: CardType[]
-    deleteCard: (id: string) => void
-}
+
 

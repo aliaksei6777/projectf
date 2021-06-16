@@ -3,24 +3,24 @@ import React from "react";
 import styled from "styled-components";
 
 
-export const DeletePackModal = (props: deletePackModalType) => {
+export const DeleteCardModal = (props: deleteCardModalType) => {
     return (
         <HiringModal active={props.activeModal} setActive={props.setActiveModal}>
-            <ModalTitle>Delete Pack</ModalTitle>
+            <ModalTitle>Delete card</ModalTitle>
             <ContainerStyle>
-                <ModalSpan>Do you really want to remove pack?</ModalSpan>
+                <ModalSpan>Do you really want to remove card?</ModalSpan>
                 <ModalSpan>All cards will be excluded from this course.</ModalSpan>
             </ContainerStyle>
-            <ModalButtonDelete onClick={props.deletePack}>Delete</ModalButtonDelete>
+            <ModalButtonDelete onClick={props.deleteCard}>Delete</ModalButtonDelete>
         </HiringModal>
     )
 }
 
 //type
-type deletePackModalType = {
+type deleteCardModalType = {
     activeModal: boolean
     setActiveModal: Function
-    deletePack: () => void
+    deleteCard: () => void
 }
 
 //style

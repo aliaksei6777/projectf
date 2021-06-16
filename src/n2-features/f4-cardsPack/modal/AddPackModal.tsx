@@ -7,12 +7,11 @@ export const AddPackModal = (props: addPackModalType) => {
     return (
         <HiringModal active={props.activeModal} setActive={props.setActiveModal}>
             <ModalTitle>Add Pack</ModalTitle>
-            <SpanContainerStyle>
+            <ContainerStyle>
                 <ModalSpan>Pack Name</ModalSpan>
                 <input type={'text'} value={props.value} onChange={props.onChangeInputModal}/>
-            </SpanContainerStyle>
-            <ModalButtonDelete
-                onClick={props.addPack}>Add</ModalButtonDelete>
+            </ContainerStyle>
+            <ModalButtonAdd onClick={props.addPack}>Add</ModalButtonAdd>
         </HiringModal>
     )
 }
@@ -37,7 +36,7 @@ const ModalTitle = styled.h4`
   color: #2D2E46;
 `
 
-const SpanContainerStyle = styled.div`
+const ContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -54,7 +53,7 @@ const ModalSpan = styled.span`
   color: #000000;
 `
 
-const ModalButtonDelete = styled.button`
+const ModalButtonAdd = styled.button`
   position: absolute;
   top: 200px;
   right: 30px;

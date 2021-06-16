@@ -1,4 +1,5 @@
-import {setAppError, SetAppErrorActionType,
+import {
+    setAppError, SetAppErrorActionType,
     setAppStatus, SetAppStatusActionType
 } from "../../n1-main/m1-ui/app-reducer";
 import {ThunkDispatch} from "redux-thunk";
@@ -31,7 +32,7 @@ export const setCards = (cards: CardType[]) => ({type: 'CARDS/SET-CARDS', cards}
 export const createCard = (newCard: CardType) => ({type: 'CARDS/ADD-CARD', newCard} as const)
 
 
-export const getCardsTC = (cardsPackId: string) => async(dispatch: ThunkDispatch<RootStateType, unknown, ActionsType>) => {
+export const getCardsTC = (cardsPackId: string) => async (dispatch: ThunkDispatch<RootStateType, unknown, ActionsType>) => {
     dispatch(setAppStatus('loading'))
     dispatch(setAppError(null))
     try {
@@ -48,7 +49,7 @@ export const getCardsTC = (cardsPackId: string) => async(dispatch: ThunkDispatch
 
 }
 
-export const addCardTC = (card: CardType) => async(dispatch: ThunkDispatch<RootStateType, unknown, ActionsType>) => {
+export const addCardTC = (card: CardType) => async (dispatch: ThunkDispatch<RootStateType, unknown, ActionsType>) => {
     dispatch(setAppStatus('loading'))
     dispatch(setAppError(null))
     try {
@@ -64,7 +65,7 @@ export const addCardTC = (card: CardType) => async(dispatch: ThunkDispatch<RootS
     }
 }
 
-export const updateCardTC = (card: CardType) => async(dispatch: ThunkDispatch<RootStateType, unknown, ActionsType>) => {
+export const updateCardTC = (card: CardType) => async (dispatch: ThunkDispatch<RootStateType, unknown, ActionsType>) => {
     dispatch(setAppStatus('loading'))
     dispatch(setAppError(null))
     try {
@@ -111,9 +112,9 @@ export type CardType = {
     answer: string,
     question: string,
     cardsPack_id: string,
-    grade: number,
-    rating: number,
-    type: string,
+    grade?: number,
+    rating?: number,
+    type?: string,
     user_id?: string,
     created?: string,
     updated?: string,

@@ -9,6 +9,7 @@ import {
     getCardPacksTC,
     setCardPacks,
     setPageSize,
+    updateCardPacksTC,
 } from "./pack-reducer";
 import {Pack} from "./Pack";
 import {v1} from "uuid";
@@ -19,6 +20,7 @@ import {PATH} from "../../n1-main/m1-ui/u3-routes/Routes";
 import {Paginator} from "../../n3-components/Paginator/Paginator";
 import {AddPackModal} from "./modal/AddPackModal";
 import {DeletePackModal} from "./modal/DeletePackModal";
+import {EditPackModal} from "./modal/EditPackModal";
 
 export const PackContainer = React.memo(() => {
         console.log("render")
@@ -30,6 +32,7 @@ export const PackContainer = React.memo(() => {
         const pageSize = useSelector<RootStateType, number>(state => state.cardPacks.pageSize)
         const [activeDeletePackModal, setActiveDeletePackModal] = useState(false)
         const [activeAddPackModal, setActiveAddPackModal] = useState(false)
+        const [activeEditPackModal, setActiveEditPackModal] = useState(false)
         const [valueInput, setValueInput] = useState<string>('')
         const [idPack, setIdPack] = useState<string>('')
         const dispatch = useDispatch()
@@ -74,6 +77,18 @@ export const PackContainer = React.memo(() => {
             setIdPack(id)
         }
 
+
+        const setActiveEditModal = (id: string, name: string) => {
+            setActiveEditPackModal(true)
+            setIdPack(id)
+            setValueInput(name)
+        }
+
+        const editPack = () => {
+            dispatch(updateCardPacksTC({_id: idPack, name: valueInput}))
+            setActiveEditPackModal(false)
+        }
+
         if (!isLoggedIn) {
             return <Redirect to={PATH.LOGIN}/>
         }
@@ -91,7 +106,9 @@ export const PackContainer = React.memo(() => {
                         <Pack
                             cardPack={cardPacks}
                             myId={myId}
-                            setActiveDeleteModal={setActiveDeleteModal}/>
+                            setActiveDeleteModal={setActiveDeleteModal}
+                            setActiveEditModal={setActiveEditModal}
+                        />
                         <ButtonStyle onClick={() => setActiveAddPackModal(true)}>Add Pack</ButtonStyle>
                         <PaginatorStyled>
                             <Paginator totalItemsCount={totalPageCount}
@@ -118,7 +135,15 @@ export const PackContainer = React.memo(() => {
                         <DeletePackModal
                             activeModal={activeDeletePackModal}
                             setActiveModal={setActiveDeletePackModal}
-                            deletePack={deletePack}/>
+                            deletePack={deletePack}
+                        />
+                        <EditPackModal
+                            activeModal={activeEditPackModal}
+                            setActiveModal={setActiveEditPackModal}
+                            onChangeInputModal={onChangeInputModal}
+                            value={valueInput}
+                            editPack={editPack}
+                        />
                     </SecondColumn>
                 </CardsStyledContainer>
             </DivContainerStyle>

@@ -3,25 +3,32 @@ import React from "react";
 import styled from "styled-components";
 
 
-export const DeletePackModal = (props: deletePackModalType) => {
+export const AddCardModal = (props: addCardModalType) => {
     return (
         <HiringModal active={props.activeModal} setActive={props.setActiveModal}>
-            <ModalTitle>Delete Pack</ModalTitle>
+            <ModalTitle>Add card</ModalTitle>
             <ContainerStyle>
-                <ModalSpan>Do you really want to remove pack?</ModalSpan>
-                <ModalSpan>All cards will be excluded from this course.</ModalSpan>
+                <ModalSpan>Question</ModalSpan>
+                <input type={'text'} value={props.valueQuestion} onChange={props.onChangeInputQuestionModal}/>
+                <ModalSpan>Answer</ModalSpan>
+                <input type={'text'} value={props.valueAnswer} onChange={props.onChangeInputAnswerModal}/>
             </ContainerStyle>
-            <ModalButtonDelete onClick={props.deletePack}>Delete</ModalButtonDelete>
+            <ModalButtonAdd onClick={props.addCard}>Save</ModalButtonAdd>
         </HiringModal>
     )
 }
 
 //type
-type deletePackModalType = {
+type addCardModalType = {
     activeModal: boolean
     setActiveModal: Function
-    deletePack: () => void
+    onChangeInputQuestionModal: (e: React.FormEvent<HTMLInputElement>) => void
+    valueQuestion: string
+    valueAnswer: string
+    onChangeInputAnswerModal: (e: React.FormEvent<HTMLInputElement>) => void
+    addCard: () => void
 }
+
 
 //style
 const ModalTitle = styled.h4`
@@ -37,6 +44,7 @@ const ContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
+  margin-right: 150px;
 `
 
 const ModalSpan = styled.span`
@@ -49,7 +57,7 @@ const ModalSpan = styled.span`
   color: #000000;
 `
 
-const ModalButtonDelete = styled.button`
+const ModalButtonAdd = styled.button`
   position: absolute;
   top: 200px;
   right: 30px;
