@@ -17,22 +17,34 @@ export const Pack: React.FC<CardType> = (props) => {
             </Thead>
             {props.cardPack.map(cardPack => {
                 return <TrStyled key={cardPack._id}>
-                    <TdStyled>{cardPack.name}</TdStyled>
+                    <TdStyled> <StyledLink to={PATH.CARDS + '/' + cardPack._id}>{cardPack.name}</StyledLink></TdStyled>
                     <TdStyled>{cardPack.cardsCount}</TdStyled>
                     <TdStyled>{cardPack.updated}</TdStyled>
                     <TdStyled>{cardPack.user_name}</TdStyled>
                     <TdStyled>
-                        <ButtonDelete onClick={() => props.deletePack(cardPack._id)}>Delete</ButtonDelete>
-                        <ButtonEdit>Edit</ButtonEdit>
+                        {cardPack.user_id === props.myId
+                        &&
+                        <ButtonDelete onClick={() => props.setActiveDeleteModal(cardPack._id)}>Delete</ButtonDelete>}
+                        {cardPack.user_id === props.myId
+                        &&
+                        <ButtonEdit onClick={() => props.setActiveEditModal(cardPack._id, cardPack.name)}>Edit</ButtonEdit>}
                         <ButtonLearn>
-                            <StyledLink to={PATH.CARDS + '/' + cardPack._id}>Learn</StyledLink>
+                            Learn
                         </ButtonLearn>
                     </TdStyled>
                 </TrStyled>
             })}
-
         </Table>
     </>
+}
+
+
+//types
+type CardType = {
+    cardPack: Array<CardPacksType>
+    setActiveDeleteModal: (id: string) => void
+    setActiveEditModal: (id: string, name: string) => void
+    myId: string
 }
 
 //styled-components
@@ -63,13 +75,14 @@ const ThStyled = styled.th`
 `
 
 const TrStyled = styled.tr`
-  &:nth-child(even){
+  &:nth-child(even) {
     background-color: #FFFFFF;
   }
-  &:nth-child(odd){
-    background-color:  #ECECF9;
+
+  &:nth-child(odd) {
+    background-color: #ECECF9;
   }
-  
+
 `
 
 const TdStyled = styled.td`
@@ -122,9 +135,4 @@ const StyledLink = styled(NavLink)`
   color: #21268F;
 `
 
-//types
-type CardType = {
-    cardPack: Array<CardPacksType>
-    deletePack: (id: string) => void
-}
 

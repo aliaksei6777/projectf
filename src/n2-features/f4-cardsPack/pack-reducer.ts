@@ -104,7 +104,6 @@ export const updateCardPacksTC = (cardsPack: CardPacksType) =>
     }
 
 export const deleteCardPacksTC = (id: string) => async (dispatch: ThunkDispatch<RootStateType, unknown, ActionsType>, getState: () => RootStateType) => {
-
     const requestPage = getState().cardPacks.currentPage
     const pageSize = getState().cardPacks.pageSize
     dispatch(setAppStatus('loading'))
@@ -146,7 +145,7 @@ export type CardPacksType = {
     grade?: number
     shots?: number
     cardsCount?: number | undefined
-    type: string
+    type?: string
     rating?: number
     created?: string | undefined
     updated?: string

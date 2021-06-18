@@ -1,11 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-export const SearchPack = () => {
+export const SearchPack = (props: searchPackType) => {
     return <>
         <InputSearchContainer type={'search'} placeholder={'Search...'}/>
-        <ButtonSearch>Add new pack</ButtonSearch>
+        <ButtonStyled onClick={() => props.setActiveAddPackModal(true)}>Add new pack</ButtonStyled>
     </>
+}
+
+//type
+type searchPackType = {
+    setActiveAddPackModal: Function
 }
 
 //styled-components
@@ -21,7 +26,7 @@ const InputSearchContainer = styled.input`
   margin-left: 10px;
 `
 
-const ButtonSearch = styled.button`
+const ButtonStyled = styled.button`
   background: #21268F;
   width: 150px;
   height: 30px;
