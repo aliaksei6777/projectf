@@ -15,12 +15,14 @@ export const Recovery = () => {
 
     const [email, setEmail] = useState<string>('')
 
-    const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
+     const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
         setEmail(event.currentTarget.value)
     }
     const onClickHandler = () => {
         dispatch(sendRecoveryEmail(email))
         setEmail('')
+
+
     }
 
     useEffect(() => {
@@ -42,13 +44,16 @@ export const Recovery = () => {
                             Enter your email address and we will send you further instructions
                         </Content>
                         <ButtonContainer>
-                            <ButtonRegistration onClick={onClickHandler} disabled={appStatus === 'loading'}> Send
-                                Instructions</ButtonRegistration>
+                            <NavLinkContentLogging to={PATH.RECOVERY_PASSWORD_CHECK_EMAIL}>
+                                <ButtonRegistration onClick={onClickHandler} disabled={appStatus === 'loading'}> Send
+                                    Instructions</ButtonRegistration>
+                            </NavLinkContentLogging>
                         </ButtonContainer>
+
                         <ContentRemember>
                             Did you remember your password?
                         </ContentRemember>
-                            <NavLinkContentLogging to={PATH.LOGIN}> Try logging in</NavLinkContentLogging>
+                        <NavLinkContentLogging to={PATH.LOGIN}> Try logging in</NavLinkContentLogging>
                     </InputContainer>
                 </FormContainer>
             </RecoveryContainer>
@@ -107,6 +112,7 @@ const InputRegistration = styled.input`
   border: none;
   border-bottom: 1px solid #24254A;
   opacity: 0.2;
+
   &:focus {
     outline: none;
   }
@@ -128,6 +134,7 @@ const ButtonRegistration = styled.button`
   left: 0px;
   top: 0px;
   margin-top: 20px;
+
   &:active {
     background-color: #b1b1b1 !important;
   }
@@ -176,7 +183,7 @@ const ContentRemember = styled.div`
 `
 
 const NavLinkContentLogging = styled(NavLink)`
-text-decoration: none;
+  text-decoration: none;
   display: flex;
   width: 98px;
   height: 24px;
