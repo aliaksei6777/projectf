@@ -13,9 +13,9 @@ export const Recovery = () => {
     const error = useSelector<RootStateType, string | null>(state => state.app.error)
     const dispatch = useDispatch()
 
-    const [email, setEmail] = useState<string>('')
+     const [email, setEmail] = useState<string>('')
 
-     const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
         setEmail(event.currentTarget.value)
     }
     const onClickHandler = () => {
@@ -41,13 +41,13 @@ export const Recovery = () => {
                         <SpanContainer>Email</SpanContainer>
                         <InputRegistration value={email} onChange={onChangeEmail}/>
                         <Content>
-                            Enter your email address and we will send you further instructions
+                            Enter your email address and we  will send you further instructions
                         </Content>
                         <ButtonContainer>
-                            <NavLinkContentLogging to={PATH.RECOVERY_PASSWORD_CHECK_EMAIL}>
+                            <NavLinkCheckEmail to={PATH.RECOVERY_PASSWORD_CHECK_EMAIL}>
                                 <ButtonRegistration onClick={onClickHandler} disabled={appStatus === 'loading'}> Send
                                     Instructions</ButtonRegistration>
-                            </NavLinkContentLogging>
+                            </NavLinkCheckEmail>
                         </ButtonContainer>
 
                         <ContentRemember>
@@ -197,6 +197,11 @@ const NavLinkContentLogging = styled(NavLink)`
   text-align: center;
   color: #21268F;
 `
+
+const NavLinkCheckEmail = styled(NavLink)`
+    
+`
+
 
 const SpanContainer = styled.span`
   align-self: end;

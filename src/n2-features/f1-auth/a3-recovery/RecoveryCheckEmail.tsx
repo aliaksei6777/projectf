@@ -1,11 +1,14 @@
 import React from "react";
 import styled from "styled-components"
 import mail from '../../../assets/images/Group 281.png'
+import {useSelector} from "react-redux";
+import {RootStateType} from "../../../n1-main/m2-bll/store";
+
+
+
 
 
 export const RecoveryCheckEmail = () => {
-
-
     return (
         <>
             <RecoveryContainer>
@@ -16,7 +19,8 @@ export const RecoveryCheckEmail = () => {
                     <TitleContainer>Check Email</TitleContainer>
                     <InputContainer>
                         <Content>
-                            We’ve sent an Email with instructions to example@mail.com
+
+                            We’ve sent an Email with instructions {} to example@mail.com
                         </Content>
                     </InputContainer>
                 </FormContainer>
@@ -99,5 +103,7 @@ const ImgContent = styled.div`
   justify-content: center;
   margin-top: 100px;
 `
+
+
 
 
