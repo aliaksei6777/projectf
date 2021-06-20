@@ -1,43 +1,102 @@
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "../../n1-main/m2-bll/store";
-import {addCardTC, CardType, deleteCardTC, getCardsTC} from "./cards-reducer";
+import {addCardTC, CardType, deleteCardTC, getCardsTC, updateCardTC} from "./cards-reducer";
 import {Card} from "./Card";
-import {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {v1} from "uuid";
 import {SearchCard} from "./SearchCard";
+import {AddCardModal} from "./modal/AddCardModal";
+import {DeleteCardModal} from "./modal/DeleteCardModal";
+import {EditCardModal} from "./modal/EditCardModal";
 
 
 export const CardsContainer = () => {
     const cards = useSelector<RootStateType, CardType[]>(state => state.cards.cards)
+    const myId = useSelector<RootStateType, string>(state => state.auth.user._id)
     const {id} = useParams<{ id: string }>()
+    const [idCard, setIdCard] = useState<string>('')
+    const [activeAddCardModal, setActiveAddCardModal] = useState(false)
+    const [activeDeleteCardModal, setActiveDeleteCardModal] = useState(false)
+    const [activeEditCardModal, setActiveEditCardModal] = useState(false)
+    const [valueInputQuestion, setValueInputQuestion] = useState<string>('')
+    const [valueInputAnswer, setValueInputAnswer] = useState<string>('')
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getCardsTC(id))
     }, [])
 
-    const deleteCard = (id: string) => {
-        dispatch(deleteCardTC(id))
+    const onChangeInputQuestionModal = (e: React.FormEvent<HTMLInputElement>) => {
+        setValueInputQuestion(e.currentTarget.value)
     }
 
-    const tempCart: CardType = {
-        _id: v1(),
-        type: 'sport',
-        question: 'What is your favorite game?',
-        answer: 'Football',
-        cardsPack_id: id,
-        grade: 5,
-        rating: 0
+    const onChangeInputAnswerModal = (e: React.FormEvent<HTMLInputElement>) => {
+        setValueInputAnswer(e.currentTarget.value)
+    }
+
+    const addCard = () => {
+        dispatch(addCardTC({_id: v1(), question: valueInputQuestion, answer: valueInputAnswer, cardsPack_id: id}))
+        setActiveAddCardModal(false)
+    }
+
+    const deleteCard = () => {
+        dispatch(deleteCardTC(idCard))
+        setActiveDeleteCardModal(false)
+    }
+
+    const setActiveDeleteModal = (id: string) => {
+        setActiveDeleteCardModal(true)
+        setIdCard(id)
+    }
+
+    const setActiveEditModal = (id: string, question: string, answer: string) => {
+        setActiveEditCardModal(true)
+        setIdCard(id)
+        setValueInputQuestion(question)
+        setValueInputAnswer(answer)
+    }
+
+    const editCard = () => {
+        dispatch(updateCardTC({_id: idCard, question: valueInputQuestion, answer: valueInputAnswer, cardsPack_id: id}))
+        setActiveEditCardModal(false)
     }
 
     return (
         <CardStyled>
             <CardsStyledContainer>
-                <SearchCard/>
-                <Card card={cards} deleteCard={deleteCard}/>
-                <ButtonStyle onClick={() => dispatch(addCardTC(tempCart))}>ADD</ButtonStyle>
+                <SearchCard setActiveAddCardModal={setActiveAddCardModal}/>
+                <Card
+                    myId={myId}
+                    card={cards}
+                    setActiveDeleteModal={setActiveDeleteModal}
+                    setActiveEditModal={setActiveEditModal}
+                />
+               {/* <ButtonStyle onClick={() => setActiveAddCardModal(true)}>ADD</ButtonStyle>*/}
+                <AddCardModal
+                    activeModal={activeAddCardModal}
+                    setActiveModal={setActiveAddCardModal}
+                    onChangeInputQuestionModal={onChangeInputQuestionModal}
+                    valueQuestion={valueInputQuestion}
+                    onChangeInputAnswerModal={onChangeInputAnswerModal}
+                    valueAnswer={valueInputAnswer}
+                    addCard={addCard}
+                />
+                <DeleteCardModal
+                    activeModal={activeDeleteCardModal}
+                    setActiveModal={setActiveDeleteCardModal}
+                    deleteCard={deleteCard}
+                />
+                <EditCardModal
+                    activeModal={activeEditCardModal}
+                    setActiveModal={setActiveEditCardModal}
+                    onChangeInputQuestionModal={onChangeInputQuestionModal}
+                    valueQuestion={valueInputQuestion}
+                    onChangeInputAnswerModal={onChangeInputAnswerModal}
+                    valueAnswer={valueInputAnswer}
+                    editCard={editCard}
+                    />
             </CardsStyledContainer>
         </CardStyled>
 

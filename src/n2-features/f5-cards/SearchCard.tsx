@@ -2,12 +2,18 @@ import React from "react";
 import styled from "styled-components";
 
 
-export const SearchCard = () => {
+export const SearchCard = (props: searchCardType) => {
     return <SearchPackStyled>
         <InputSearchContainer type={'search'} placeholder={'Search...'}/>
-        <ButtonSearch>Add new card</ButtonSearch>
+        <ButtonStyled onClick={() => props.setActiveAddCardModal(true)}>Add new card</ButtonStyled>
     </SearchPackStyled>
 }
+
+//type
+type searchCardType = {
+    setActiveAddCardModal: Function
+}
+
 
 //styled-components
 const SearchPackStyled = styled.div`
@@ -30,7 +36,7 @@ const InputSearchContainer = styled.input`
   margin-left: 10px;
 `
 
-const ButtonSearch = styled.button`
+const ButtonStyled = styled.button`
   background: #21268F;
   width: 150px;
   height: 30px;
